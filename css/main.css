@@ -1,15 +1,9 @@
 body {margin: 0; position: fixed;}
-
 #debug {position: absolute; top: 0px; left: 0px; background-color: white;}
-
 #canvas {position: absolute; background-color: #444; top: 0px; margin: 0; padding: 0; border: 0; border-spacing: 0; display: flex; width: 100vw; height: 100vh; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: -moz-none; -o-user-select: none; user-select: none;}
-
 #kate {position: absolute; height: 3em; object-fit: cover; z-index: 0;}
-
 #willy {position: absolute; height: 3em; object-fit: cover; z-index: 0;}
-
-.floor {position: absolute; background-image: url("../images/floor.png"); background-repeat: repeat-x;}
-
-.wall {position: absolute; background-image: url("../images/wall.png"); background-repeat: repeat-x; background-repeat: repeat-y;}
-
+.floor {position: absolute; background-image: url("../images/floor.png"); background-repeat: repeat;}
+.wall {position: absolute; background-image: url("../images/wall.png"); background-repeat: repeat;}
 .conveyor {position: absolute; object-fit: cover;}
+.conveyorImg {position: absolute; object-fit: cover;}

@@ -1,15 +1,37 @@
 import { Figure } from './figure.js';
 
 export class Kate extends Figure {
-
+  
   constructor(canvas) {
     super(canvas, 'kate', 'images/kate.png');
+    this.posX = 16;
+    this.posY = 8;
   } // constructor
 
-  render() {
-  } // render
+  mustGoLeft() {
+    //return super.mustGoLeft();
+    if (this.direction == 1) {
+      if (this.posX > 1*8) {
+        return 1;
+      }
+      else {
+        this.direction = 0;
+      }
+    }
+    return 0;
+  } // mustGoLeft
 
-  animation() {
-  } // animation
-  
+  mustGoRight() {
+    //return super.mustGoRight();
+    if (this.direction == 0) {
+      if (this.posX+this.imageWidth-2 < 11*8) {
+        return 1;
+      }
+      else {
+        this.direction = 1;
+      }
+    }
+    return 0;
+  } // mustGoRight
+
 } // class Kate
