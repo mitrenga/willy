@@ -46,7 +46,9 @@ export class Canvas {
 
     this.addObject(new Conveyor(this, 25*8, 6*8, 9*8));
     this.addObject(new Conveyor(this, 36*8, 8*8, 3*8));
-} // sceneInit
+
+    this.scale = this.willy.elementObj.clientHeight / 16;
+  } // sceneInit
 
 
   addFigure(figure) {
@@ -94,7 +96,6 @@ export class Canvas {
 
 
   sceneRender() {
-    this.scale = this.elementObj.clientHeight/400;
     this.width = this.elementObj.clientWidth;
     this.height = this.elementObj.clientHeight;
     for (let i = 0; i < this.arrayFigures.length; i++) {
