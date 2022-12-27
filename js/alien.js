@@ -5,10 +5,11 @@ export class Alien extends Figure {
   minX = 0;
   maxX = 0;
 
-  constructor(canvas, version, id, posX, posY, minX, maxX) {
-    super(canvas, 'alien'+version+id, 'alien'+version, 'images/alien'+version+'.png');
+  constructor(canvas, version, id, posX, posY, imageWidth, minX, maxX) {
+    super(canvas, 'alien'+version+id, 'alien', 'images/alien'+version+'.png');
     this.posX = posX;
     this.posY = posY;
+    this.imageWidth = imageWidth;
     this.minX = minX;
     this.maxX = maxX;
   } // constructor

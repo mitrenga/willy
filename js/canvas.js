@@ -51,10 +51,10 @@ export class Canvas {
     this.addObject(new Conveyor(this, 4*8, 6*8, 9*8, 'right'));
 
     this.addObject(new Floor(this, 14*8, 3*8, 8*8, 'floor'));
-    this.addFigure(new Alien(this, '001', 1, 14*8, 4*8, 14*8, 22*8));
+    this.addFigure(new Alien(this, '001', 1, 14*8, 4*8, 12, 14*8, 22*8));
 
     this.addObject(new Floor(this, 34*8, 6*8, 5*8, 'floor'));
-    this.addFigure(new Alien(this, '001', 2, 34*8, 7*8, 34*8, 39*8));
+    this.addFigure(new Alien(this, '002', 2, 34*8, 7*8, 14, 34*8, 39*8));
 
     this.addObject(new Wall(this, 39*8, 4*8, 1*8, 8*8, 'wall')); 
     this.addObject(new Wall(this, 39*8, 1*8, 1*8, 3*8, 'grille'));
@@ -121,8 +121,7 @@ export class Canvas {
     this.addObject(new Wall(this, 63*8, 1*8, 1*8, 3*8, 'grille'));
     this.addObject(new Wall(this, 63*8, 4*8, 1*8, 2*8, 'wall'));
     this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key'));
-    this.addObject(new Floor(this, 48*8, 6*8, 16*8, 'ceiling'));
-    this.addObject(new Wall(this, 63*8, 7*8, 1*8, 3*8, 'handrail'));
+    this.addObject(new Floor(this, 46*8, 6*8, 20*8, 'ceiling'));
     this.addFigure(new Car(this));
     var labelStore = new Wall(this, 80*8, 1*8, 32, 32, 'labelStore')
     labelStore.backgroundSize = 32;
