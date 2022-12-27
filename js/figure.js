@@ -20,12 +20,13 @@ export class Figure {
   jumpMap = [0, 4, 4, 3, 3, 2, 2, 1, 1, 0, -1, -1, -2, -2, -3, -3, -4, -4];
 
 
-  constructor(canvas, elementId, imageFileName) {
+  constructor(canvas, elementId, cssClass, imageFileName) {
     this.canvas = canvas;
     this.elementId = elementId;
     this.imageFileName = imageFileName;
     var newObject = document.createElement('img');
     newObject.id = this.elementId;
+    newObject.className = cssClass;
     newObject.src = this.imageFileName;
     canvas.elementObj.appendChild(newObject);
     this.elementObj = document.getElementById(this.elementId);
@@ -53,6 +54,11 @@ export class Figure {
         }
         if (this.canGoLeft()) {
           this.posX -= 2;
+          if (this.isStairLeftUp()) {
+            this.posY += 2;
+          } else if (this.isStairLeftDown()) {
+            this.posY += 2;
+          }
         }
       }
       this.render();
@@ -70,6 +76,11 @@ export class Figure {
         }
         if (this.canGoRight()) {
           this.posX += 2;
+          if (this.isStairRightUp()) {
+            this.posY += 2;
+          } else if (this.isStairRightDown()) {
+            this.posY -= 2;
+          }
         }
       }
       this.render();
@@ -121,9 +132,9 @@ export class Figure {
 
   render() {
     this.elementObj.style.left = this.canvas.width/2-(this.canvas.willy.posX+8-this.posX)*this.canvas.scale+'px';
-    this.elementObj.style.top = this.canvas.height/2-(this.posY+this.jump-this.canvas.willy.posY+8)*this.canvas.scale+'px';
+    this.elementObj.style.top = this.canvas.height/2-(this.posY+this.jump-this.canvas.willy.posY+this.imageHeight-8)*this.canvas.scale+'px';
     this.elementObj.style.width = (this.imageWidth-2)*this.canvas.scale+'px';
-    this.elementObj.style.height = 16*this.canvas.scale+'px';
+    this.elementObj.style.height = this.imageHeight*this.canvas.scale+'px';
     this.elementObj.style.objectPosition = -(1+this.step*this.imageWidth+this.direction*this.imageWidth*4)*this.canvas.scale+'px';
   } // render
 
@@ -149,10 +160,15 @@ export class Figure {
     if (this.jumpCounter) {
       return;
     }
-    if (!this.isLanding()) {
-      this.falling = 1;
-      return;
+    for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
+      if ((this.posY+this.jump == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posX+this.imageWidth > this.canvas.arrayObjects[i].posX) &&
+          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
+      {
+        return;
+      }
     }
+    this.falling = 1;
   } // checkFalling
 
   
@@ -229,5 +245,46 @@ export class Figure {
 
     return 1;
   } // canGoLeft
-    
+
+
+  isStairRightUp() {
+    var deltaStairY = this.posY%8;
+    for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
+      if ((this.canvas.arrayObjects[i].rightStair) &&
+          (this.posX+this.imageWidth-2 == this.canvas.arrayObjects[i].posX+deltaStairY+2) &&
+          (this.posY+this.jump < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.imageHeight > this.canvas.arrayObjects[i].posY))
+      {
+        return 1;
+      }
+    }
+
+    return 0;
+  } // isStairRightUp
+
+
+  isStairRightDown() {
+    return 0;
+  } // isStairRightDown
+  
+
+  isStairLeftUp() {
+    var deltaStairY = this.posY%8;
+    for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
+      if ((this.canvas.arrayObjects[i].leftStair) &&
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY-2) &&
+          (this.posY+this.jump < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.imageHeight > this.canvas.arrayObjects[i].posY))
+      {
+        return 1;
+      }
+    }
+
+    return 0;
+  } // isStairLeftUp
+  
+
+  isStairLeftDown() {
+    return 0;
+  } // isStairLeftDown    
 } // class Figure

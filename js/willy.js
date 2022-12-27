@@ -6,9 +6,9 @@ export class Willy extends Figure {
 
 
   constructor(canvas) {
-    super(canvas, 'willy', 'images/willy.png');
-    this.posX = 200;
-    this.posY = 8;
+    super(canvas, 'willy', 'willy', 'images/willy.png');
+    this.posX = 20*8;
+    this.posY = 1*8;
   } // constructor
 
   
@@ -33,6 +33,11 @@ export class Willy extends Figure {
         }
         if (this.canGoLeft()) {
           this.posX -= 2;
+          if (this.isStairLeftUp()) {
+            this.posY += 2;
+          } else if (this.isStairLeftDown()) {
+            this.posY -= 2;
+          }
         }
       }
       this.canvas.sceneRender();
@@ -50,6 +55,11 @@ export class Willy extends Figure {
         }
         if (this.canGoRight()) {
           this.posX += 2;
+          if (this.isStairRightUp()) {
+            this.posY += 2;
+          } else if (this.isStairRightDown()) {
+            this.posY -= 2;
+          }
         }
       }
       this.canvas.sceneRender();
@@ -108,7 +118,7 @@ export class Willy extends Figure {
       this.elementObj.style.left = this.canvas.width/2-8*this.canvas.scale+'px';
     this.elementObj.style.top = this.canvas.height/2-8*this.canvas.scale-(this.jump+this.canvas.deltaY)*this.canvas.scale+'px';
     this.elementObj.style.width = (this.imageWidth-2)*this.canvas.scale+'px';
-    this.elementObj.style.height = 16*this.canvas.scale+'px';
+    this.elementObj.style.height = this.imageHeight*this.canvas.scale+'px';
     this.elementObj.style.objectPosition = -(1+this.step*this.imageWidth+this.direction*this.imageWidth*4)*this.canvas.scale+'px';
   } // render
 
@@ -124,6 +134,35 @@ export class Willy extends Figure {
     }
     return 0;
   } // isLanding
+
+
+  checkFalling() {
+    if (this.jumpCounter) {
+      return;
+    }
+    var deltaStairY = this.posY%8;
+    for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
+      if ((this.posY+this.jump+this.canvas.deltaY == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
+          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
+      {
+        return;
+      }
+      if ((this.direction == 0) &&
+          (this.canvas.arrayObjects[i].rightStair) &&
+          (this.posX+this.imageWidth-2 == this.canvas.arrayObjects[i].posX+deltaStairY))
+      {
+        return;
+      }
+      if ((this.direction == 1) &&
+          (this.canvas.arrayObjects[i].leftStair) &&
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY))
+      {
+        return;
+      }
+    }
+    this.falling = 1;
+  } // checkFalling
 
 
   isHeadImpact() {

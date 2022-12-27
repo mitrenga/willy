@@ -1,9 +1,32 @@
-body {margin: 0; position: fixed;}
-#debug {position: absolute; top: 0px; left: 0px; background-color: white;}
-#canvas {position: absolute; background-color: #444; top: 0px; margin: 0; padding: 0; border: 0; border-spacing: 0; display: flex; width: 100vw; height: 100vh; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: -moz-none; -o-user-select: none; user-select: none;}
-#willy {position: absolute; height: 3em; object-fit: cover; z-index: 0;}
-#kate {position: absolute; object-fit: cover; z-index: 0;}
+body {margin: 0; position: fixed; background-color: #666;}
+.canvas {position: absolute; background-color: #666; top: 0px; margin: 0; padding: 0; border: 0; border-spacing: 0; display: flex; width: 100vw; height: 100vh; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: -moz-none; -o-user-select: none; user-select: none;}
+.willy {position: absolute; height: 3em; object-fit: cover; z-index: 0;}
+.kate {position: absolute; object-fit: cover; z-index: 0;}
+.rocket {position: absolute; object-fit: cover;}
+.bird {position: absolute; object-fit: cover;}
+.car {position: absolute; object-fit: cover;}
+.alien001 {position: absolute; object-fit: cover; z-index: 0;}
 .floor {position: absolute; background-image: url("../images/floor.png"); background-repeat: repeat;}
 .wall {position: absolute; background-image: url("../images/wall.png"); background-repeat: repeat;}
+.grille {position: absolute; background-image: url("../images/grille.png"); background-repeat: repeat;}
+.stairRight {position: absolute; background-image: url("../images/stair-right.png"); background-repeat: repeat;}
+.stairLeft {position: absolute; background-image: url("../images/stair-left.png"); background-repeat: repeat;}
+.grass {position: absolute; background-image: url("../images/grass.png"); background-repeat: repeat;}
+.road {position: absolute; background-image: url("../images/road.png"); background-repeat: repeat;}
+.clay {position: absolute; background-image: url("../images/clay.png"); background-repeat: repeat;}
+.concrete {position: absolute; background-image: url("../images/concrete.png"); background-repeat: repeat;}
+.ceiling {position: absolute; background-image: url("../images/ceiling.png"); background-repeat: repeat;}
+.handrail {position: absolute; background-image: url("../images/handrail.png"); background-repeat: repeat;}
+.roofLeft {position: absolute; background-image: url("../images/roof-left.png"); background-repeat: repeat;}
+.roofRight {position: absolute; background-image: url("../images/roof-right.png"); background-repeat: repeat;}
+.roofLeftExt {position: absolute; background-image: url("../images/roof-left-ext.png"); background-repeat: repeat;}
+.roofRightExt {position: absolute; background-image: url("../images/roof-right-ext.png"); background-repeat: repeat;}
+.treeCrown {position: absolute; background-image: url("../images/tree-crown.png"); background-repeat: no-repeat;}
+.treeTrunk {position: absolute; background-image: url("../images/tree-trunk.png"); background-repeat: no-repeat;}
+.labelStore {position: absolute; background-image: url("../images/label-store.png"); background-repeat: no-repeat;}
+.labelPole {position: absolute; background-image: url("../images/label-pole.png"); background-repeat: no-repeat;}
+.treeTrunk {position: absolute; background-image: url("../images/tree-trunk.png"); background-repeat: no-repeat;}
 .conveyor {position: absolute; object-fit: cover;}
 .conveyorImg {position: absolute; object-fit: cover;}
+.item {position: absolute; object-fit: cover;}
+.itemImg {position: absolute; object-fit: cover;}

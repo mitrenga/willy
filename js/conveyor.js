@@ -3,10 +3,16 @@ import { Object } from './object.js';
 export class Conveyor extends Object {
 
   arrayImages = new Array();
+  leftConveyor = 0;
+  rightConveyor = 0;
 
-  constructor(canvas, posX, posY, width) {
+  constructor(canvas, posX, posY, width, operation) {
     super(canvas, posX, posY, width, 8, 'conveyor');
-    this.leftConveyor = 1;
+
+    switch (operation) {
+       case 'right': this.rightConveyor = 1; break;
+       case 'left': this.leftConveyor = 1; break;
+    }
     var length = width;
     var counter = 0;
     while (length > 0) {
@@ -35,7 +41,12 @@ export class Conveyor extends Object {
 
   animate() {
     for (let i = 0; i < this.arrayImages.length; i++) {
-      this.arrayImages[i].style.objectPosition =  -(this.canvas.animationCounter*8)*this.canvas.scale+'px';
+      if (this.rightConveyor) {
+        this.arrayImages[i].style.objectPosition =  -(56-this.canvas.animationCounter*8)*this.canvas.scale+'px';
+      }
+      if (this.leftConveyor) {
+        this.arrayImages[i].style.objectPosition =  -(this.canvas.animationCounter*8)*this.canvas.scale+'px';
+      }
     }
   } // animate
 

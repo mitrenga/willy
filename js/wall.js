@@ -2,8 +2,8 @@ import { Object } from './object.js';
 
 export class Wall extends Object {
 
-  constructor(canvas, posX, posY, width, height) {
-    super(canvas, posX, posY, width, height, 'wall');
+  constructor(canvas, posX, posY, width, height, cssClass) {
+    super(canvas, posX, posY, width, height, cssClass);
     this.impenetrable = 1;
   } // constructor
   

@@ -1,8 +1,17 @@
 import { Willy } from './willy.js';
 import { Kate } from './kate.js';
+import { Alien } from './alien.js';
+import { Rocket } from './rocket.js';
+import { Bird } from './bird.js';
+import { Car } from './car.js';
 import { Floor } from './floor.js';
 import { Wall } from './wall.js';
+import { StairRight } from './stair-right.js';
+import { StairLeft } from './stair-left.js';
 import { Conveyor } from './conveyor.js';
+import { RoofLeft } from './roof-left.js';
+import { RoofRight } from './roof-right.js';
+import { Item } from './item.js';
 
 export class Canvas {
   elementObj = document.getElementById('canvas');
@@ -15,7 +24,8 @@ export class Canvas {
   willy = null;
   loopCounter = 0;
   animationCounter = 0;
-  
+  longAnimationCounter = 0;
+
   pressKeyUp = 0;
   pressKeyLeft = 0;
   pressKeyRight = 0;
@@ -30,22 +40,93 @@ export class Canvas {
     this.addFigure(new Kate(this));
     this.addFigure(this.willy = new Willy(this));
 
-    this.addObject(new Floor(this, 0*8, 0*8, 40*8));
-    this.addObject(new Floor(this, 1*8, 5*8, 12*8));
-    this.addObject(new Floor(this, 13*8, 4*8, 2*8));
-    this.addObject(new Floor(this, 17*8, 2*8, 4*8));
-    this.addObject(new Floor(this, 34*8, 2*8, 5*8));
-    this.addObject(new Floor(this, 36*8, 4*8, 3*8));
-    this.addObject(new Floor(this, 38*8, 6*8, 1*8));
+    // first floor
+    this.addObject(new Floor(this, 0*8, 0*8, 40*8, 'concrete'));
+    this.addObject(new Wall(this, 0*8, 1*8, 1*8, 11*8, 'wall'));
+    this.addObject(new Wall(this, 11*8, 1*8, 3*8, 1*8, 'wall'));
+    this.addObject(new Wall(this, 12*8, 2*8, 2*8, 1*8, 'wall'));
+    this.addObject(new Wall(this, 13*8, 3*8, 1*8, 1*8, 'wall'));
+    this.addObject(new Floor(this, 7*8, 4*8, 3*8, 'floor'));
+    this.addObject(new Wall(this, 13*8, 4*8, 1*8, 3*8, 'grille'));
+    this.addObject(new Conveyor(this, 4*8, 6*8, 9*8, 'right'));
 
-    this.addObject(new Wall(this, 0*8, 1*8, 1*8, 20*8));
-    this.addObject(new Wall(this, 39*8, 1*8, 1*8, 20*8));
-    this.addObject(new Wall(this, 11*8, 1*8, 2*8, 1*8));
-    this.addObject(new Wall(this, 11*8, 6*8, 2*8, 1*8));
-    this.addObject(new Wall(this, 15*8, 3*8, 2*8, 2*8));
+    this.addObject(new Floor(this, 14*8, 3*8, 8*8, 'floor'));
+    this.addFigure(new Alien(this, '001', 1, 14*8, 4*8, 14*8, 22*8));
 
-    this.addObject(new Conveyor(this, 25*8, 6*8, 9*8));
-    this.addObject(new Conveyor(this, 36*8, 8*8, 3*8));
+    this.addObject(new Floor(this, 34*8, 6*8, 5*8, 'floor'));
+    this.addFigure(new Alien(this, '001', 2, 34*8, 7*8, 34*8, 39*8));
+
+    this.addObject(new Wall(this, 39*8, 4*8, 1*8, 8*8, 'wall')); 
+    this.addObject(new Wall(this, 39*8, 1*8, 1*8, 3*8, 'grille'));
+    this.addObject(new Item(this, 38*8, 4*8, 8, 8, 'key'));
+
+    // stair
+    for (let i = 28; i < 34; i++) {
+      this.addObject(new StairRight(this, i*8, (i-27)*8));
+      this.addObject(new StairLeft(this, i*8, (40-i)*8));
+    }
+
+    // second floor
+    this.addObject(new Wall(this, -4*8, 12*8, 32*8, 1*8, 'ceiling'));
+    this.addObject(new Wall(this, -4*8, 13*8, 1*8, 2*8, 'handrail'));
+    this.addObject(new Wall(this, 0*8, 16*8, 1*8, 2*8, 'wall'));
+
+    this.addObject(new Wall(this, 32*8, 12*8, 12*8, 1*8, 'ceiling'));
+    this.addObject(new Wall(this, 43*8, 13*8, 1*8, 2*8, 'handrail'));
+    this.addObject(new Wall(this, 39*8, 13*8, 1*8, 5*8, 'wall'));
+
+    //under roof
+    this.addObject(new Conveyor(this, 13*8, 17*8, 14*8, 'left'));
+    this.addObject(new Floor(this, 34*8, 14*8, 3*8, 'floor'));
+    this.addObject(new Floor(this, 30*8, 16*8, 3*8, 'floor'));
+    this.addObject(new Wall(this, 20*8, 20*8, 1*8, 11*8, 'wall'));
+    this.addObject(new Item(this, 20*8, 31*8, 8, 8, 'key'));
+    this.addObject(new Conveyor(this, 21*8, 19*8, 5*8, 'right'));
+    this.addObject(new Conveyor(this, 21*8, 23*8, 3*8, 'right'));
+    this.addObject(new Conveyor(this, 21*8, 27*8, 1*8, 'right'));
+    this.addObject(new Floor(this, 15*8, 19*8, 6*8, 'floor'));
+    this.addObject(new Wall(this, 19*8, 21*8, 1*8, 1*8, 'wall'));
+    this.addObject(new Floor(this, 16*8, 23*8, 4*8, 'floor'));
+    this.addObject(new Wall(this, 19*8, 25*8, 1*8, 1*8, 'wall'));
+    this.addObject(new Floor(this, 17*8, 27*8, 3*8, 'floor'));
+    this.addObject(new Wall(this, 19*8, 29*8, 1*8, 1*8, 'wall'));
+
+    // roof
+    for (let i = -1; i < 20; i++) {
+      this.addObject(new RoofLeft(this, i*8, (18+i)*8));
+      this.addObject(new RoofRight(this, (39-i)*8, (18+i)*8));
+      if (i < 19) {
+        this.addObject(new Floor(this, i*8+8, (18+i)*8, 1*8, 'roofLeftExt'));
+        this.addObject(new Floor(this, (39-i)*8-8, (18+i)*8, 1*8, 'roofRightExt'));
+      }
+    }
+
+    // garden - left side
+    this.addObject(new Floor(this, -100*8, 0*8, 100*8, 'grass'));
+    var treeTrunk = new Wall(this, -25*8, 1*8, 16, 18, 'treeTrunk')
+    treeTrunk.backgroundSize = 16;
+    this.addObject(treeTrunk);
+    var treeCrown = new Wall(this, -25*8, 1*8+18, 26, 18, 'treeCrown')
+    treeCrown.backgroundSize = 26;
+    this.addObject(treeCrown);
+    this.addFigure(new Rocket(this));
+    this.addFigure(new Bird(this));
+    this.addObject(new Item(this, -2*8, 1*8, 16, 12, 'jetpac'));
+
+    // garage - right side
+    this.addObject(new Floor(this, 40*8, 0*8, 8*8, 'grass'));
+    this.addObject(new Floor(this, 48*8, 0*8, 116*8, 'road'));
+    this.addObject(new Wall(this, 48*8, 1*8, 1*8, 3*8, 'grille'));
+    this.addObject(new Wall(this, 48*8, 4*8, 1*8, 2*8, 'wall'));
+    this.addObject(new Wall(this, 63*8, 1*8, 1*8, 3*8, 'grille'));
+    this.addObject(new Wall(this, 63*8, 4*8, 1*8, 2*8, 'wall'));
+    this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key'));
+    this.addObject(new Floor(this, 48*8, 6*8, 16*8, 'ceiling'));
+    this.addObject(new Wall(this, 63*8, 7*8, 1*8, 3*8, 'handrail'));
+    this.addFigure(new Car(this));
+    var labelStore = new Wall(this, 80*8, 1*8, 32, 32, 'labelStore')
+    labelStore.backgroundSize = 32;
+    this.addObject(labelStore);
 
     this.scale = this.willy.elementObj.clientHeight / 16;
   } // sceneInit
@@ -83,10 +164,16 @@ export class Canvas {
       if (this.animationCounter > 7) {
         this.animationCounter = 0;
       }
+      if (this.animationCounter == 0 || this.animationCounter == 4) {
+        this.longAnimationCounter++;
+        if (this.longAnimationCounter > 4) {
+          this.longAnimationCounter = 0;
+        }
+      }
       this.sceneAnimation();
     }
   
-    if ((this.willy.figureType == 0) && (this.loopCounter != 0))
+    if (((this.willy.figureType == 0) || (this.willy.figureType == 1)) && (this.loopCounter != 0))
       return;
 
     for (let i = 0; i < this.arrayFigures.length; i++) {
@@ -128,23 +215,23 @@ export class Canvas {
     }
   
     if ((key == 'c') || (key == 'C')) {
-      if ((this.willy.figureType == 0) && !this.willy.jump && !this.willy.falling && (this.willy.posY+this.deltaY == 8)) {
+      if ((this.willy.figureType == 0) && !this.willy.jump && !this.willy.falling) {
         this.willy.figureType = 1;
-        this.willy.elementObj.src = 'images/willy-car.png';
-        this.willy.imageWidth = 32;
+        this.willy.elementObj.src = 'images/willy-jetpac.png';
+        this.willy.imageWidth = 12;
       } 
-      else if (this.willy.figureType == 1) {
+/*      else if (this.willy.figureType == 1) {
         this.willy.figureType = 2;
         this.willy.elementObj.src = 'images/willy-plane.png';
         this.willy.imageWidth = 32;
-      }
+      }*/
       else {
         this.willy.figureType = 0;
         this.willy.elementObj.src = 'images/willy.png';
         this.willy.imageWidth = 12;
       }
       this.sceneRender();
-    } 
+    }
   } // eventKeyDown(key)
   
   

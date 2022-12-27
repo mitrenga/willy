@@ -7,10 +7,11 @@ export class Object {
   posY = 0;
   width = 0;
   height = 0;
+  backgroundSize = 8;
   
-  leftConveyor = 0;
-  rightConveyor = 0;
   impenetrable = 0;
+  leftStair = 0;
+  rightStair = 0;
 
   constructor(canvas, posX, posY, width, height, cssClass) {
     this.canvas = canvas;
@@ -32,7 +33,7 @@ export class Object {
     this.elementObj.style.top = this.canvas.height/2-(this.posY+this.height-8)*this.canvas.scale+this.canvas.willy.posY*this.canvas.scale+'px';
     this.elementObj.style.width = this.width*this.canvas.scale+'px';
     this.elementObj.style.height = this.height*this.canvas.scale+'px';
-    this.elementObj.style.backgroundSize = 8*this.canvas.scale+'px';
+    this.elementObj.style.backgroundSize = this.backgroundSize*this.canvas.scale+'px';
   } // render
 
 
