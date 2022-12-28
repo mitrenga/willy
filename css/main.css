@@ -1,5 +1,22 @@
-body {margin: 0; position: fixed; background-color: #666;}
-.canvas {position: absolute; background-color: #666; top: 0px; margin: 0; padding: 0; border: 0; border-spacing: 0; display: flex; width: 100vw; height: 100vh; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: -moz-none; -o-user-select: none; user-select: none;}
+body {margin: 0; position: fixed; background-color: #666; overflow: hidden; touch-action: none;}
+.canvas {
+  position: absolute;
+  background-color: #666;
+  top: 0px;
+  margin: 0;
+  padding: 0; 
+  border: 0;
+  border-spacing: 0;
+  display: flex; 
+  width: 100vw;
+  height: 100vh;
+  -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: -moz-none; -o-user-select: none; user-select: none;
+}
+
+.leftButton {position: absolute; top: 70%; left: 0; width: 20vw; height: 20vw; border-radius: 50%; object-fit: cover; z-index: 1; background-color: white;}
+.rightButton {position: absolute; top: 70%; right: 0; width: 20vw; height: 20vw; border-radius: 50%; object-fit: cover; z-index: 1; background-color: white;}
+.upButton {position: absolute; top: 70%; right: 40%; width: 20vw; height: 20vw; border-radius: 50%; object-fit: cover; z-index: 1; background-color: white;}
+
 .willy {position: absolute; height: 3em; object-fit: cover; z-index: 0;}
 .kate {position: absolute; object-fit: cover; z-index: 0;}
 .rocket {position: absolute; object-fit: cover;}

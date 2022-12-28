@@ -245,5 +245,5 @@ export class Canvas {
       this.pressKeyUp = 0;
     }
   } // eventKeyUp(key)
-    
+  
 } // class Canvas
