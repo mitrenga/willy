@@ -24,12 +24,11 @@ export class Figure {
     this.canvas = canvas;
     this.elementId = elementId;
     this.imageFileName = imageFileName;
-    var newObject = document.createElement('img');
-    newObject.id = this.elementId;
-    newObject.className = cssClass;
-    newObject.src = this.imageFileName;
-    canvas.elementObj.appendChild(newObject);
-    this.elementObj = document.getElementById(this.elementId);
+    this.elementObj = document.createElement('img');
+    this.elementObj.id = this.elementId;
+    this.elementObj.className = cssClass;
+    this.elementObj.src = this.imageFileName;
+    canvas.elementObj.appendChild(this.elementObj);
   } // constructor
 
 

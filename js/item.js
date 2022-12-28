@@ -7,12 +7,11 @@ export class Item extends Object {
   constructor(canvas, posX, posY, width, height, image) {
     super(canvas, posX, posY, width, height, 'item');
 
-    var newObject = document.createElement('img');
-    newObject.id =  'itemImg'+posX+posY;
-    newObject.className = 'itemImg';
-    newObject.src = 'images/'+image+'.png';
-    this.elementObj.appendChild(newObject);
-    this.imgElementObj = document.getElementById('itemImg'+posX+posY);
+    this.imgElementObj = document.createElement('img');
+    this.imgElementObj.id =  'itemImg'+posX+posY;
+    this.imgElementObj.className = 'itemImg';
+    this.imgElementObj.src = 'images/'+image+'.png';
+    this.elementObj.appendChild(this.imgElementObj);
   } // constructor
 
 

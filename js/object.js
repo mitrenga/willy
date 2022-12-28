@@ -20,11 +20,10 @@ export class Object {
     this.width = width;
     this.height = height;
     this.elementId = cssClass+posX+posY; 
-    var newObject = document.createElement('div');
-    newObject.id = this.elementId;
-    newObject.className = cssClass;
-    canvas.elementObj.appendChild(newObject);
-    this.elementObj = document.getElementById(this.elementId);
+    this.elementObj = document.createElement('div');
+    this.elementObj.id = this.elementId;
+    this.elementObj.className = cssClass;
+    canvas.elementObj.appendChild(this.elementObj);
   } // constructor
   
   

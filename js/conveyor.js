@@ -21,7 +21,7 @@ export class Conveyor extends Object {
       newObject.className = 'conveyorImg';
       newObject.src = 'images/conveyor.png';
       this.elementObj.appendChild(newObject);
-      this.arrayImages.push(document.getElementById('conveyorImg'+posX+posY+counter));
+      this.arrayImages.push(newObject);
       counter++;
       length -= 8;
     } // while
