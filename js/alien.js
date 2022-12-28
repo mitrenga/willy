@@ -1,4 +1,4 @@
-import { Figure } from './figure.js';
+const { Figure } = await import('./figure.js?ver='+window.srcVersion);
 
 export class Alien extends Figure {
   

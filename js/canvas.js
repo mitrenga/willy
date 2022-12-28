@@ -1,17 +1,17 @@
-import { Willy } from './willy.js';
-import { Kate } from './kate.js';
-import { Alien } from './alien.js';
-import { Rocket } from './rocket.js';
-import { Bird } from './bird.js';
-import { Car } from './car.js';
-import { Floor } from './floor.js';
-import { Wall } from './wall.js';
-import { StairRight } from './stair-right.js';
-import { StairLeft } from './stair-left.js';
-import { Conveyor } from './conveyor.js';
-import { RoofLeft } from './roof-left.js';
-import { RoofRight } from './roof-right.js';
-import { Item } from './item.js';
+const { Willy } = await import('./willy.js?ver='+window.srcVersion);
+const { Kate } = await import('./kate.js?ver='+window.srcVersion);
+const { Alien } = await import('./alien.js?ver='+window.srcVersion);
+const { Rocket } = await import('./rocket.js?ver='+window.srcVersion);
+const { Bird } = await import('./bird.js?ver='+window.srcVersion);
+const { Car } = await import('./car.js?ver='+window.srcVersion);
+const { Floor } = await import('./floor.js?ver='+window.srcVersion);
+const { Wall } = await import('./wall.js?ver='+window.srcVersion);
+const { StairRight } = await import('./stair-right.js?ver='+window.srcVersion);
+const { StairLeft } = await import('./stair-left.js?ver='+window.srcVersion);
+const { Conveyor } = await import('./conveyor.js?ver='+window.srcVersion);
+const { RoofLeft } = await import('./roof-left.js?ver='+window.srcVersion);
+const { RoofRight } = await import('./roof-right.js?ver='+window.srcVersion);
+const { Item } = await import('./item.js?ver='+window.srcVersion);
 
 export class Canvas {
   elementObj = document.getElementById('canvas');
@@ -189,7 +189,7 @@ export class Canvas {
     }
     for (let i = 0; i < this.arrayObjects.length; i++) {
       this.arrayObjects[i].render();
-    }
+    }    
   } // sceneRender
 
 

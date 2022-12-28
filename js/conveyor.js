@@ -1,4 +1,4 @@
-import { Object } from './object.js';
+const { Object } = await import('./object.js?ver='+window.srcVersion);
 
 export class Conveyor extends Object {
 

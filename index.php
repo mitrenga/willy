@@ -10,6 +10,7 @@
   <body>
     <div id="canvas" class="canvas">
     </div>
+    <script>srcVersion = "<?php echo md5(time()); ?>";</script> 
     <script type="module" src="js/main.js?ver=<?php echo md5(time()); ?>"></script> 
   </body>
 </html>

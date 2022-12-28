@@ -1,4 +1,4 @@
-import { Canvas } from './canvas.js';
+const { Canvas } = await import('./canvas.js?ver='+window.srcVersion);
 
 var canvas = new Canvas();
 
