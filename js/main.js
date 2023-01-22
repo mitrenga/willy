@@ -28,10 +28,12 @@ document.addEventListener('keyup', (event) => {
   canvas.eventKeyUp(event.key);
 }); // document.addEventListener('keyup', (event)
 
+
 if (window.matchMedia("(pointer: coarse)").matches) { // if touch device
   var newObject = document.createElement('div');
   newObject.id = 'leftButton';
   newObject.className = 'leftButton';
+  newObject.textContent = '⇦';
   canvas.elementObj.appendChild(newObject);
   newObject.addEventListener('touchstart', handleStartArrowLeft);
   newObject.addEventListener('touchend', handleEndArrowLeft);
@@ -39,6 +41,7 @@ if (window.matchMedia("(pointer: coarse)").matches) { // if touch device
   newObject = document.createElement('div');
   newObject.id = 'rightButton';
   newObject.className = 'rightButton';
+  newObject.textContent = '⇨';
   canvas.elementObj.appendChild(newObject);
   newObject.addEventListener('touchstart', handleStartArrowRight);
   newObject.addEventListener('touchend', handleEndArrowRight);
@@ -46,6 +49,7 @@ if (window.matchMedia("(pointer: coarse)").matches) { // if touch device
   newObject = document.createElement('div');
   newObject.id = 'upButton';
   newObject.className = 'upButton';
+  newObject.textContent = '⇧';
   canvas.elementObj.appendChild(newObject);
   newObject.addEventListener('touchstart', handleStartArrowUp);
   newObject.addEventListener('touchend', handleEndArrowUp);

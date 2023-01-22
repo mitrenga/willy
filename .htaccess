@@ -1,0 +1,26 @@
+# htaccess rules for subdomains and aliases
+# to create new subdomain, create a folder www/subdom/(subdomain name)
+# to create web for alias, create a folder www/domains/(whole domain name)
+
+# htaccess pravidla pro subdomeny a samostatne weby aliasu
+# pro vytvoreni subdomeny vytvorte adresar www/subdom/(nazev subdomeny)
+# pro vytvoreni webu pro alias vytvorte adresar www/domains/(cely domenovy nazev)
+# dalsi info a priklady: https://kb.wedos.com/cs/webhosting/htaccess/htaccess-na-webhostingu
+
+RewriteEngine On
+
+# ENABLE HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{SERVER_NAME}/$1 [R=301,L]
+Header set Content-Security-Policy "upgrade-insecure-requests;"
+
+# DISABLE CACHING
+<IfModule mod_headers.c>
+Header set Cache-Control "no-cache, no-store, must-revalidate"
+Header set Pragma "no-cache"
+Header set Expires 0
+</IfModule>
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(manifest.webmanifest)$ index.php/?$1 [L,QSA]
