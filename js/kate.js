@@ -8,8 +8,8 @@ export class Kate extends Figure {
     this.posY = 8;
   } // constructor
 
-  mustGoLeft() {
-    //return super.mustGoLeft();
+
+  pressKeyLeft() {
     if (this.direction == 1) {
       if (this.posX > 1*8) {
         return 1;
@@ -19,10 +19,10 @@ export class Kate extends Figure {
       }
     }
     return 0;
-  } // mustGoLeft
+  } // pressKeyLeft
 
-  mustGoRight() {
-    //return super.mustGoRight();
+
+  pressKeyRight() {
     if (this.direction == 0) {
       if (this.posX+this.imageWidth-2 < 11*8) {
         return 1;
@@ -32,6 +32,6 @@ export class Kate extends Figure {
       }
     }
     return 0;
-  } // mustGoRight
+  } // pressKeyRight
 
 } // class Kate

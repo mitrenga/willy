@@ -10,8 +10,7 @@ export class Bird extends Figure {
     this.imageWidth = 16;
   } // constructor
 
-  mustGoLeft() {
-    //return super.mustGoLeft();
+  pressKeyLeft() {
     if (this.direction == 1) {
       if (this.posX > -40*8) {
         return 1;
@@ -21,10 +20,9 @@ export class Bird extends Figure {
       }
     }
     return 0;
-  } // mustGoLeft
+  } // pressKeyLeft
 
-  mustGoRight() {
-    //return super.mustGoRight();
+  pressKeyRight() {
     if (this.direction == 0) {
       if (this.posX+this.imageWidth-2 < -10*8) {
         return 1;
@@ -34,7 +32,7 @@ export class Bird extends Figure {
       }
     }
     return 0;
-  } // mustGoRight
+  } // pressKeyRight
 
 
   isLanding() {

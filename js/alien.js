@@ -14,7 +14,8 @@ export class Alien extends Figure {
     this.maxX = maxX;
   } // constructor
 
-  mustGoLeft() {
+
+  pressKeyLeft() {
     if (this.direction == 1) {
       if (this.posX > this.minX) {
         return 1;
@@ -24,9 +25,10 @@ export class Alien extends Figure {
       }
     }
     return 0;
-  } // mustGoLeft
+  } // pressKeyLeft
 
-  mustGoRight() {
+
+  pressKeyRight() {
     if (this.direction == 0) {
       if (this.posX+this.imageWidth-2 < this.maxX) {
         return 1;
@@ -36,6 +38,6 @@ export class Alien extends Figure {
       }
     }
     return 0;
-  } // mustGoRight
+  } // pressKeyRight
 
 } // class Alien

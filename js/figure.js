@@ -16,6 +16,7 @@ export class Figure {
   jumpDirection = 0;
   jumpCounter = 0;
   falling = 0;
+  mainFigure = 0;
 
   jumpMap = [0, 4, 4, 3, 3, 2, 2, 1, 1, 0, -1, -1, -2, -2, -3, -3, -4, -4];
 
@@ -34,15 +35,18 @@ export class Figure {
 
   loop() {
     if (this.falling) {
-      this.posY -= 4;
-      this.render();
-      if (this.isLanding ()) {
-        this.falling = 0;
+      for (let i = 0; i < 4; i++) {
+        this.posY -= 1;
+        if (this.isLanding ()) {
+          this.falling = 0;
+          break;
+        }
       }
+      this.canvas.sceneRender();
       return;
     }
   
-    if (((0/*this.canvas.pressKeyLeft*/ && !this.mustGoRight() || this.mustGoLeft()) && (!this.jumpCounter)) || (this.jumpDirection == 1)) {
+    if (((this.pressKeyLeft() && !this.mustGoRight() || this.mustGoLeft()) && (!this.jumpCounter)) || (this.jumpDirection == 1)) {
       if (this.direction == 0) {
         this.direction = 1;
       }
@@ -56,15 +60,15 @@ export class Figure {
           if (this.isStairLeftUp()) {
             this.posY += 2;
           } else if (this.isStairLeftDown()) {
-            this.posY += 2;
+            this.posY -= 2;
           }
         }
       }
-      this.render();
+      this.canvas.sceneRender();
       this.checkFalling();
     }
   
-    if (((0/*this.canvas.pressKeyRight*/ && !this.mustGoLeft() || this.mustGoRight()) && (!this.jumpCounter)) || (this.jumpDirection == 2)) {
+    if (((this.pressKeyRight() && !this.mustGoLeft() || this.mustGoRight()) && (!this.jumpCounter)) || (this.jumpDirection == 2)) {
       if (this.direction == 1) {
         this.direction = 0;
       }
@@ -82,11 +86,11 @@ export class Figure {
           }
         }
       }
-      this.render();
+      this.canvas.sceneRender();
       this.checkFalling();
     }
   
-    if ((0/*this.canvas.pressKeyUp*/) || (this.jumpCounter)) {
+    if ((this.pressKeyUp()) || (this.jumpCounter)) {
       if (this.jumpCounter == 0) {
         if (this.canvas.pressKeyLeft && !this.canvas.pressKeyRight && !this.mustGoRight() || this.mustGoLeft())
           this.jumpDirection = 1;
@@ -103,15 +107,27 @@ export class Figure {
       }
       else {
         this.jumpCounter++;
-        if ((this.jumpMap[this.jumpCounter] < 0) && this.isLanding ()) {
-          this.posY += this.jump;
-          this.jump = 0;
-          this.jumpCounter = 0;
-          this.jumpDirection = 0;
+        if (this.jumpMap[this.jumpCounter] < 0) {
+          for (let i = 0; i > this.jumpMap[this.jumpCounter]; i--) {
+            if (this.isLanding ()) {
+              if (this.mainFigure) {
+                this.canvas.deltaY += this.jump;
+                this.jump = 0;
+              }
+              this.jumpCounter = 0;
+              this.jumpDirection = 0;
+              break;
+            }
+            this.jump -= 1;
+          }
         }
         else {
           this.jump += this.jumpMap[this.jumpCounter];
           if (this.isHeadImpact ()) {
+            if (this.mainFigure) {
+              this.canvas.deltaY += this.jump;
+              this.jump = 0;
+            }
             this.jumpCounter = 0;
             this.jumpDirection = 0;
             this.checkFalling();
@@ -142,10 +158,25 @@ export class Figure {
   } // animation
   
 
+  pressKeyLeft() {
+    return 0;
+  } // pressKeyLeft
+
+
+  pressKeyRight() {
+    return 0;
+  } // pressKeyRight
+
+
+  pressKeyUp() {
+    return 0;
+  } // pressKeyUp
+
+
   isLanding() {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
-      if ((this.posY+this.jump == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posX+this.imageWidth > this.canvas.arrayObjects[i].posX) &&
+      if ((this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
       {
         return 1;
@@ -153,16 +184,28 @@ export class Figure {
     }
     return 0;
   } // isLanding
-  
 
   checkFalling() {
     if (this.jumpCounter) {
       return;
     }
+    var deltaStairY = this.posY%8;
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
-      if ((this.posY+this.jump == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posX+this.imageWidth > this.canvas.arrayObjects[i].posX) &&
+      if ((this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
+      {
+        return;
+      }
+      if ((this.direction == 0) &&
+          (this.canvas.arrayObjects[i].rightStair) &&
+          (this.posX+this.imageWidth-2 == this.canvas.arrayObjects[i].posX+deltaStairY))
+      {
+        return;
+      }
+      if ((this.direction == 1) &&
+          (this.canvas.arrayObjects[i].leftStair) &&
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY))
       {
         return;
       }
@@ -170,11 +213,11 @@ export class Figure {
     this.falling = 1;
   } // checkFalling
 
-  
+
   isHeadImpact() {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
-          (this.posY+this.jump+this.imageHeight == this.canvas.arrayObjects[i].posY) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight == this.canvas.arrayObjects[i].posY) &&
           (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
       {
@@ -185,11 +228,11 @@ export class Figure {
     return 0;
   } // isHeadImpact
 
-
+  
   mustGoLeft() {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].leftConveyor) &&
-          (this.posY+this.jump == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
           (this.posX+this.imageWidth > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
       {
@@ -199,12 +242,12 @@ export class Figure {
   
     return 0;
   } // mustGoLeft
-  
+
 
   mustGoRight() {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].rightConveyor) &&
-          (this.posY+this.jump == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
           (this.posX+this.imageWidth > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
       {
@@ -220,8 +263,8 @@ export class Figure {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
           (this.posX+this.imageWidth-2 == this.canvas.arrayObjects[i].posX) &&
-          (this.posY+this.jump < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posY+this.jump+this.imageHeight > this.canvas.arrayObjects[i].posY))
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight > this.canvas.arrayObjects[i].posY))
       {
         return 0;
       }
@@ -235,8 +278,8 @@ export class Figure {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
           (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width) &&
-          (this.posY+this.jump < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posY+this.jump+this.imageHeight > this.canvas.arrayObjects[i].posY))
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight > this.canvas.arrayObjects[i].posY))
       {
         return 0;
       }
@@ -244,7 +287,7 @@ export class Figure {
 
     return 1;
   } // canGoLeft
-
+    
 
   isStairRightUp() {
     var deltaStairY = this.posY%8;
@@ -285,5 +328,6 @@ export class Figure {
 
   isStairLeftDown() {
     return 0;
-  } // isStairLeftDown    
+  } // isStairLeftDown
+
 } // class Figure
