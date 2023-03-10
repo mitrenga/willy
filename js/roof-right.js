@@ -4,8 +4,8 @@ export class RoofRight extends Object {
 
   constructor(canvas, posX, posY) {
     super(canvas, posX, posY, 8, 8, 'roofRight');
-    this.impenetrable = 1;
-    this.rightStair = 1;
+    this.impenetrable = 0;
+    this.leftStair = 1;
   } // constructor
   
 } // class RoofRight

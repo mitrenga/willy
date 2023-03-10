@@ -71,10 +71,12 @@ export class Canvas {
     this.addObject(new Wall(this, -4*8, 12*8, 32*8, 1*8, 'ceiling'));
     this.addObject(new Wall(this, -4*8, 13*8, 1*8, 2*8, 'handrail'));
     this.addObject(new Wall(this, 0*8, 16*8, 1*8, 2*8, 'wall'));
+    this.addObject(new Wall(this, -1*8, 16*8, 1*8, 1*8, 'wall'));
 
     this.addObject(new Wall(this, 33*8, 12*8, 11*8, 1*8, 'ceiling'));
     this.addObject(new Wall(this, 43*8, 13*8, 1*8, 2*8, 'handrail'));
     this.addObject(new Wall(this, 39*8, 13*8, 1*8, 5*8, 'wall'));
+    this.addObject(new Wall(this, 40*8, 16*8, 1*8, 1*8, 'wall'));
 
     //under roof
     this.addObject(new Conveyor(this, 13*8, 17*8, 14*8, 'left'));
@@ -93,14 +95,16 @@ export class Canvas {
     this.addObject(new Wall(this, 19*8, 29*8, 1*8, 1*8, 'wall'));
 
     // roof
-    for (let i = -1; i < 20; i++) {
+    for (let i = -1; i < 19; i++) {
       this.addObject(new RoofLeft(this, i*8, (18+i)*8));
       this.addObject(new RoofRight(this, (39-i)*8, (18+i)*8));
       if (i < 19) {
-        this.addObject(new Floor(this, i*8+8, (18+i)*8, 1*8, 'roofLeftExt'));
-        this.addObject(new Floor(this, (39-i)*8-8, (18+i)*8, 1*8, 'roofRightExt'));
+        this.addObject(new Wall(this, i*8+8, (18+i)*8, 1*8, 1*8, 'roofLeftExt'));
+        this.addObject(new Wall(this, (39-i)*8-8, (18+i)*8, 1*8, 1*8, 'roofRightExt'));
       }
     }
+    this.addObject(new Wall(this, 19*8, 36*8, 1*8, 1*8, 'roofLeft'));
+    this.addObject(new Wall(this, 20*8, 36*8, 1*8, 1*8, 'roofRight'));
 
     // garden - left side
     this.addObject(new Floor(this, -100*8, 0*8, 100*8, 'grass'));
