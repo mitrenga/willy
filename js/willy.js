@@ -14,11 +14,14 @@ export class Willy extends Figure {
   
   loop() {
     if (this.falling) {
-      this.posY -= 4;
-      this.canvas.sceneRender();
-      if (this.isLanding ()) {
-        this.falling = 0;
+      for (let i = 0; i < 4; i++) {
+        this.posY -= 1;
+        if (this.isLanding ()) {
+          this.falling = 0;
+          break;
+        }
       }
+      this.canvas.sceneRender();
       return;
     }
   
@@ -83,11 +86,17 @@ export class Willy extends Figure {
       }
       else {
         this.jumpCounter++;
-        if ((this.jumpMap[this.jumpCounter] < 0) && this.isLanding ()) {
-          this.canvas.deltaY += this.jump;
-          this.jump = 0;
-          this.jumpCounter = 0;
-          this.jumpDirection = 0;
+        if (this.jumpMap[this.jumpCounter] < 0) {
+          for (let i = 0; i > this.jumpMap[this.jumpCounter]; i--) {
+            if (this.isLanding ()) {
+              this.canvas.deltaY += this.jump;
+              this.jump = 0;
+              this.jumpCounter = 0;
+              this.jumpDirection = 0;
+              break;
+            }
+            this.jump -= 1;
+          }
         }
         else {
           this.jump += this.jumpMap[this.jumpCounter];
