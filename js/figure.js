@@ -284,10 +284,13 @@ export class Figure {
   
 
   canGoRight() {
+    var toleration = 2;
+    if (this.jump+this.canvas.deltaY*this.mainFigure != 0)
+      toleration = 0;
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
           (this.posX+this.imageWidth-2 == this.canvas.arrayObjects[i].posX) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height-toleration) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight > this.canvas.arrayObjects[i].posY))
       {
         return 0;
@@ -299,10 +302,13 @@ export class Figure {
   
 
   canGoLeft() {
+    var toleration = 2;
+    if (this.jump+this.canvas.deltaY*this.mainFigure != 0)
+      toleration = 0;
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
           (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height-toleration) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight > this.canvas.arrayObjects[i].posY))
       {
         return 0;
