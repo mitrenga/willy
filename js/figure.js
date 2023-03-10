@@ -90,7 +90,7 @@ export class Figure {
       this.checkFalling();
     }
   
-    if ((this.pressKeyUp()) || (this.jumpCounter)) {
+    if (((this.pressKeyUp()) || (this.jumpCounter)) && (!this.falling)) {
       if (this.jumpCounter == 0) {
         if (this.canvas.pressKeyLeft && !this.canvas.pressKeyRight && !this.mustGoRight() || this.mustGoLeft())
           this.jumpDirection = 1;
