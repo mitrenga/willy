@@ -45,7 +45,7 @@ export class Figure {
       this.canvas.sceneRender();
       return;
     }
-  
+
     if (((this.pressKeyLeft() && !this.mustGoRight() || this.mustGoLeft()) && (!this.jumpCounter)) || (this.jumpDirection == 1)) {
       if (this.direction == 0) {
         this.direction = 1;
@@ -59,7 +59,7 @@ export class Figure {
           this.posX -= 2;
           if (this.isStairLeftUp()) {
             this.posY += 2;
-          } else if (this.isStairLeftDown()) {
+          } else if (this.isStairRightDown()) {
             this.posY -= 2;
           }
         }
@@ -81,7 +81,7 @@ export class Figure {
           this.posX += 2;
           if (this.isStairRightUp()) {
             this.posY += 2;
-          } else if (this.isStairRightDown()) {
+          } else if (this.isStairLeftDown()) {
             this.posY -= 2;
           }
         }
@@ -174,10 +174,27 @@ export class Figure {
 
 
   isLanding() {
+    var deltaStairY = this.posY%8;
+    if (deltaStairY == 0)
+      deltaStairY = 8;
+
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
-      if ((this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+      if ((!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
           (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
+      {
+        return 1;
+      }
+      if ((this.canvas.arrayObjects[i].rightStair) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
+          (this.posX+this.imageWidth-4 == this.canvas.arrayObjects[i].posX+deltaStairY))
+      {
+        return 1;
+      }
+      if ((this.canvas.arrayObjects[i].leftStair) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY-2))
       {
         return 1;
       }
@@ -185,27 +202,32 @@ export class Figure {
     return 0;
   } // isLanding
 
+  
   checkFalling() {
     if (this.jumpCounter) {
       return;
     }
     var deltaStairY = this.posY%8;
+    if (deltaStairY == 0)
+      deltaStairY = 8;
+
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
-      if ((this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+      if ((!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
           (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
       {
         return;
       }
-      if ((this.direction == 0) &&
-          (this.canvas.arrayObjects[i].rightStair) &&
-          (this.posX+this.imageWidth-2 == this.canvas.arrayObjects[i].posX+deltaStairY))
+      if ((this.canvas.arrayObjects[i].rightStair) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
+          (this.posX+this.imageWidth-4 == this.canvas.arrayObjects[i].posX+deltaStairY))
       {
         return;
       }
-      if ((this.direction == 1) &&
-          (this.canvas.arrayObjects[i].leftStair) &&
-          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY))
+      if ((this.canvas.arrayObjects[i].leftStair) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY-2))
       {
         return;
       }
@@ -293,9 +315,8 @@ export class Figure {
     var deltaStairY = this.posY%8;
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].rightStair) &&
-          (this.posX+this.imageWidth-2 == this.canvas.arrayObjects[i].posX+deltaStairY+2) &&
-          (this.posY+this.jump < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posY+this.jump+this.imageHeight > this.canvas.arrayObjects[i].posY))
+      (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
+      (this.posX+this.imageWidth-6 == this.canvas.arrayObjects[i].posX+deltaStairY))
       {
         return 1;
       }
@@ -306,6 +327,19 @@ export class Figure {
 
 
   isStairRightDown() {
+    var deltaStairY = this.posY%8;
+    if (deltaStairY == 0)
+      deltaStairY = 8;
+
+      for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
+        if ((this.canvas.arrayObjects[i].rightStair) &&
+        (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
+        (this.posX+this.imageWidth-4 == this.canvas.arrayObjects[i].posX+deltaStairY-2))
+        {
+          return 1;
+        }
+      }
+  
     return 0;
   } // isStairRightDown
   
@@ -314,9 +348,8 @@ export class Figure {
     var deltaStairY = this.posY%8;
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].leftStair) &&
-          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY-2) &&
-          (this.posY+this.jump < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posY+this.jump+this.imageHeight > this.canvas.arrayObjects[i].posY))
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
+          (this.posX+2 == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY-2))
       {
         return 1;
       }
@@ -327,6 +360,19 @@ export class Figure {
   
 
   isStairLeftDown() {
+    var deltaStairY = this.posY%8;
+    if (deltaStairY == 0)
+      deltaStairY = 8;
+
+      for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
+      if ((this.canvas.arrayObjects[i].leftStair) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY))
+      {
+        return 1;
+      }
+    }
+
     return 0;
   } // isStairLeftDown
 

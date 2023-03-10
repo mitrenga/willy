@@ -43,9 +43,10 @@ export class Canvas {
     // first floor
     this.addObject(new Floor(this, 0*8, 0*8, 40*8, 'concrete'));
     this.addObject(new Wall(this, 0*8, 1*8, 1*8, 11*8, 'wall'));
-    this.addObject(new Wall(this, 11*8, 1*8, 3*8, 1*8, 'wall'));
-    this.addObject(new Wall(this, 12*8, 2*8, 2*8, 1*8, 'wall'));
-    this.addObject(new Wall(this, 13*8, 3*8, 1*8, 1*8, 'wall'));
+    this.addObject(new StairRight(this, 10*8, 1*8));
+    this.addObject(new StairRight(this, 11*8, 2*8));
+    this.addObject(new StairRight(this, 12*8, 3*8));
+    this.addObject(new Wall(this, 13*8, 1*8, 1*8, 3*8, 'wall'));
     this.addObject(new Floor(this, 7*8, 4*8, 3*8, 'floor'));
     this.addObject(new Wall(this, 13*8, 4*8, 1*8, 3*8, 'grille'));
     this.addObject(new Conveyor(this, 4*8, 6*8, 9*8, 'right'));
@@ -53,8 +54,8 @@ export class Canvas {
     this.addObject(new Floor(this, 14*8, 3*8, 8*8, 'floor'));
     this.addFigure(new Alien(this, '001', 1, 14*8, 4*8, 12, 14*8, 22*8));
 
-    this.addObject(new Floor(this, 34*8, 6*8, 5*8, 'floor'));
-    this.addFigure(new Alien(this, '002', 2, 34*8, 7*8, 14, 34*8, 39*8));
+    this.addObject(new Wall(this, 34*8, 6*8, 5*8, 1*8, 'ceiling'));
+    this.addFigure(new Alien(this, '002', 2, (34-17)*8, (7-3)*8, 14, (34-34)*8, 39*8));
 
     this.addObject(new Wall(this, 39*8, 4*8, 1*8, 8*8, 'wall')); 
     this.addObject(new Wall(this, 39*8, 1*8, 1*8, 3*8, 'grille'));
@@ -71,7 +72,7 @@ export class Canvas {
     this.addObject(new Wall(this, -4*8, 13*8, 1*8, 2*8, 'handrail'));
     this.addObject(new Wall(this, 0*8, 16*8, 1*8, 2*8, 'wall'));
 
-    this.addObject(new Wall(this, 32*8, 12*8, 12*8, 1*8, 'ceiling'));
+    this.addObject(new Wall(this, 33*8, 12*8, 11*8, 1*8, 'ceiling'));
     this.addObject(new Wall(this, 43*8, 13*8, 1*8, 2*8, 'handrail'));
     this.addObject(new Wall(this, 39*8, 13*8, 1*8, 5*8, 'wall'));
 
@@ -223,7 +224,7 @@ export class Canvas {
         this.willy.figureType = 2;
         this.willy.elementObj.src = 'images/willy-plane.png';
         this.willy.imageWidth = 32;
-      }*/
+      }/**/
       else {
         this.willy.figureType = 0;
         this.willy.elementObj.src = 'images/willy.png';
