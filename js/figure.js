@@ -97,7 +97,7 @@ export class Figure {
         if (this.canvas.pressKeyRight && !this.canvas.pressKeyLeft && !this.mustGoLeft() || this.mustGoRight())
           this.jumpDirection = 2;
           
-        if (!this.isHeadImpact()) {
+        if (!this.isHeadImpact(this.jumpMap[1])) {
           this.jumpCounter = 1;
           this.jump += this.jumpMap[this.jumpCounter];
         }
@@ -123,7 +123,7 @@ export class Figure {
         }
         else {
           this.jump += this.jumpMap[this.jumpCounter];
-          if (this.isHeadImpact ()) {
+          if (this.isHeadImpact (this.jumpMap[this.jumpCounter])) {
             if (this.mainFigure) {
               this.canvas.deltaY += this.jump;
               this.jump = 0;
@@ -236,12 +236,14 @@ export class Figure {
   } // checkFalling
 
 
-  isHeadImpact() {
+  isHeadImpact(jump) {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight == this.canvas.arrayObjects[i].posY) &&
-          (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
-          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
+          (Math.abs(this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight-this.canvas.arrayObjects[i].posY) <= jump) &&
+          (((this.posX >= this.canvas.arrayObjects[i].posX) &&
+          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width)) ||
+          ((this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
+          (this.posX+this.imageWidth-2 <= this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))))
       {
         return 1;
       }

@@ -39,7 +39,6 @@ body {margin: 0; position: fixed; background-color: #666; overflow: hidden; touc
 .treeTrunk {position: absolute; background-image: url("../images/tree-trunk.png"); background-repeat: no-repeat;}
 .labelStore {position: absolute; background-image: url("../images/label-store.png"); background-repeat: no-repeat;}
 .labelPole {position: absolute; background-image: url("../images/label-pole.png"); background-repeat: no-repeat;}
-.treeTrunk {position: absolute; background-image: url("../images/tree-trunk.png"); background-repeat: no-repeat;}
 .conveyor {position: absolute; object-fit: cover;}
 .conveyorImg {position: absolute; object-fit: cover;}
 .item {position: absolute; object-fit: cover;}
