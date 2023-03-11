@@ -36,9 +36,22 @@ export class Figure {
 
   loop() {
     if (this.falling) {
-      if ((this.figureType == 1) && (this.pressKeyUp())) { // Jetpac
-
+      if ((this.figureType == 1) && (this.pressKeyUp())) { // Jetpac flying up
       } else {
+        if (this.figureType == 1) { // animate Jetpac
+          if (this.direction == 0) {
+            this.step += 1;
+            if (this.step > 3) {
+              this.step = 0;
+            }
+          } else {
+            this.step -= 1;
+            if (this.step < 0) {
+              this.step = 3;
+            }
+          }
+        } // animate Jetpac
+
         for (let i = 0; i < 4; i++) {
           this.posY -= 1;
           if (this.isLanding ()) {
@@ -55,10 +68,13 @@ export class Figure {
         this.direction = 1;
       }
       else {
-        this.step -= 1;
-        if (this.step < 0) {
-          this.step = 3;
-        }
+        if (this.figureType != 1) { // not Jetpac
+          this.step -= 1;
+          if (this.step < 0) {
+            this.step = 3;
+          }
+        } // not Jetpac
+        
         if (this.canGoLeft()) {
           this.posX -= 2;
           if (this.isStairLeftUp()) {
@@ -77,10 +93,13 @@ export class Figure {
         this.direction = 0;
       }
       else {
-        this.step += 1;
-        if (this.step > 3) {
-          this.step = 0;
-        }
+        if (this.figureType != 1) { // not Jetpac
+          this.step += 1;
+          if (this.step > 3) {
+            this.step = 0;
+          }
+        } // not Jetpac
+        
         if (this.canGoRight()) {
           this.posX += 2;
           if (this.isStairRightUp()) {
@@ -152,6 +171,20 @@ export class Figure {
       } // case 0 - Willy
 
       case 1: { // Jetpac
+
+        // animate Jetpac
+        if (this.direction == 0) {
+          this.step += 1;
+          if (this.step > 3) {
+            this.step = 0;
+          }
+        } else {
+          this.step -= 1;
+          if (this.step < 0) {
+            this.step = 3;
+          }
+        }
+
         if (this.pressKeyUp()) {
           for (let i = 0; i < 4; i++) {
             if (this.isHeadImpact (0)) {
