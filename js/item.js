@@ -55,10 +55,32 @@ export class Item extends Object {
     this.imgElementObj.style.visibility = 'hidden';
     if (this.action != null) {
       if (this.action['targetId'] == '@willy') {
-        this.canvas.willy.figureType = 1;
-        this.canvas.willy.elementObj.src = 'images/willy-jetpac.png';
-        this.canvas.willy.imageWidth = 12;
-        this.canvas.willy.render();
+        if (this.action['figureType']) {
+          this.canvas.willy.figureType = this.action['figureType'];
+          switch (this.action['figureType']) {
+            case 0: {
+              this.canvas.willy.elementObj.src = 'images/willy.png';
+              this.canvas.willy.imageWidth = 12;
+                    break;
+            }
+            case 1: {
+              this.canvas.willy.elementObj.src = 'images/willy-jetpac.png';
+              this.canvas.willy.imageWidth = 12;
+              break;
+            }
+            case 2: {
+              this.canvas.willy.elementObj.src = 'images/willy-car.png';
+              this.canvas.willy.imageWidth = 32;
+              break;
+            }
+            case 3: {
+              this.canvas.willy.elementObj.src = 'images/willy-plane.png';
+              this.canvas.willy.imageWidth = 32;
+              break;
+            }
+          } // switch
+          this.canvas.willy.render();
+        }
       } else {
         for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
           if (this.canvas.arrayObjects[i].targetId == this.action['targetId']) {
