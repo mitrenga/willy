@@ -3,8 +3,9 @@ const { Object } = await import('./object.js?ver='+window.srcVersion);
 export class Item extends Object {
 
   imgElementObj = null;
+  action = null;
 
-  constructor(canvas, posX, posY, width, height, image) {
+  constructor(canvas, posX, posY, width, height, image, action = null) {
     super(canvas, posX, posY, width, height, 'item');
 
     this.imgElementObj = document.createElement('img');
@@ -15,6 +16,7 @@ export class Item extends Object {
 
     this.item = 1;
     this.catch = 1;
+    this.action = action;
   } // constructor
 
 
@@ -51,6 +53,17 @@ export class Item extends Object {
   capture() {
     this.catch = 0;
     this.imgElementObj.style.visibility = 'hidden';
+    if (this.action != null) {
+      for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
+        if (this.canvas.arrayObjects[i].targetId == this.action['targetId']) {
+          if (this.action['movePosY'])
+            this.canvas.arrayObjects[i].movePosY = this.action['movePosY'];
+          if (this.action['moveHeight'])
+            this.canvas.arrayObjects[i].moveHeight = this.action['moveHeight'];
+          break;
+        }
+      }    
+    }
   } // capture
 
 } // class Item

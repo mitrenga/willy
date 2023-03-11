@@ -3,10 +3,17 @@ export class Object {
   canvas = null;
   elementId = null;
   elementObj = null;
+  targetId = '';
   posX = 0;
   posY = 0;
   width = 0;
   height = 0;
+
+  movePosX = 0;
+  movePosY = 0;
+  moveWidth = 0;
+  moveHeight = 0;
+
   backgroundSize = 8;
   
   impenetrable = 0;
@@ -15,13 +22,14 @@ export class Object {
   item = 0;
   catch = 0;
 
-  constructor(canvas, posX, posY, width, height, cssClass) {
+  constructor(canvas, posX, posY, width, height, cssClass, targetId = '') {
     this.canvas = canvas;
     this.posX = posX;
     this.posY = posY;
     this.width = width;
     this.height = height;
     this.elementId = cssClass+posX+posY; 
+    this.targetId = targetId;
     this.elementObj = document.createElement('div');
     this.elementObj.id = this.elementId;
     this.elementObj.className = cssClass;
@@ -39,6 +47,14 @@ export class Object {
 
 
   animate() {
+    if (this.movePosY > 1) {
+      this.movePosY -= 2;
+      this.posY += 2;
+    }
+    if (this.moveHeight < -1) {
+      this.moveHeight += 2;
+      this.height -= 2;
+    }
   } // animate
 
 

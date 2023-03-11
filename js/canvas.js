@@ -59,8 +59,8 @@ export class Canvas {
     this.addFigure(new Alien(this, '002', 2, (34-17)*8, (7-3)*8, 14, (34-34)*8, 39*8));
 
     this.addObject(new Wall(this, 39*8, 4*8, 1*8, 8*8, 'wall')); 
-    this.addObject(new Wall(this, 39*8, 1*8, 1*8, 3*8, 'grille'));
-    this.addObject(new Item(this, 38*8, 4*8, 8, 8, 'key'));
+    this.addObject(new Wall(this, 39*8, 1*8, 1*8, 3*8, 'grille', 'door#01'));
+    this.addObject(new Item(this, 38*8, 4*8, 8, 8, 'key', {targetId: 'door#01', movePosY: 2*8, moveHeight: -2*8}));
 
     // stair
     for (let i = 28; i < 34; i++) {
