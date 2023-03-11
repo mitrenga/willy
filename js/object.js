@@ -3,6 +3,7 @@ export class Object {
   canvas = null;
   elementId = null;
   elementObj = null;
+  cssClass = '';
   targetId = '';
   posX = 0;
   posY = 0;
@@ -33,6 +34,7 @@ export class Object {
     this.elementObj = document.createElement('div');
     this.elementObj.id = this.elementId;
     this.elementObj.className = cssClass;
+    this.cssClass = cssClass;
     canvas.elementObj.appendChild(this.elementObj);
   } // constructor
   

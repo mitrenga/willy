@@ -8,6 +8,7 @@ export class Item extends Object {
   constructor(canvas, posX, posY, width, height, image, action = null) {
     super(canvas, posX, posY, width, height, 'item');
 
+    this.cssClass = image;
     this.imgElementObj = document.createElement('img');
     this.imgElementObj.id =  'itemImg'+posX+posY;
     this.imgElementObj.className = 'itemImg';
@@ -17,7 +18,7 @@ export class Item extends Object {
     this.item = 1;
     this.catch = 1;
     this.action = action;
-  } // constructor
+} // constructor
 
 
   render() {
@@ -55,7 +56,7 @@ export class Item extends Object {
     this.imgElementObj.style.visibility = 'hidden';
     if (this.action != null) {
       if (this.action['targetId'] == '@willy') {
-        if (this.action['figureType']) {
+        if (this.action['figureType'] != null) {
           this.canvas.willy.figureType = this.action['figureType'];
           switch (this.action['figureType']) {
             case 0: { // Willy
@@ -79,14 +80,22 @@ export class Item extends Object {
               break;
             }
           } // switch
+          if (this.action['enableItem'] != null) {
+            for (let i = 0; i < this.canvas.arrayItems.length; i++) {
+              if (this.canvas.arrayItems[i].cssClass == this.action['enableItem']) {
+                this.canvas.arrayItems[i].catch = 1;
+                this.canvas.arrayItems[i].imgElementObj.style.visibility = 'visible';
+              }
+            }
+          }
           this.canvas.willy.render();
         }
       } else {
         for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
           if (this.canvas.arrayObjects[i].targetId == this.action['targetId']) {
-            if (this.action['movePosY'])
+            if (this.action['movePosY'] != null)
               this.canvas.arrayObjects[i].movePosY = this.action['movePosY'];
-            if (this.action['moveHeight'])
+            if (this.action['moveHeight'] != null)
               this.canvas.arrayObjects[i].moveHeight = this.action['moveHeight'];
             break;
           }

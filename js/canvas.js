@@ -118,7 +118,8 @@ export class Canvas {
     this.addObject(treeCrown);
     this.addFigure(new Rocket(this));
     this.addFigure(new Bird(this));
-    this.addObject(new Item(this, -2*8, 1*8, 16, 12, 'jetpac', {targetId: '@willy', figureType: 1}));
+    this.addObject(new Item(this, -2*8, 1*8, 16, 12, 'jetpac', {targetId: '@willy', figureType: 1, enableItem: 'jetpac-landing-area'}));
+    this.addObject(new Item(this, -3*8, 13*8, 16, 12, 'jetpac-landing-area', {targetId: '@willy', figureType: 0, enableItem: 'jetpac', disable: 1}));
 
     // garage - right side
     this.addObject(new Floor(this, 40*8, 0*8, 8*8, 'grass'));
@@ -145,8 +146,14 @@ export class Canvas {
 
   addObject(object) {
     this.arrayObjects.push(object);
-    if (object.catch)
+    if (object.catch) {
+      if ((object.action != null) && (object.action['disable'] == 1)) {
+        object.animate();
+        object.catch = 0;
+        object.imgElementObj.style.visibility = 'hidden';
+      }
       this.arrayItems.push(object);
+    }
   } // addObject
 
 
