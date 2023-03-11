@@ -117,7 +117,7 @@ export class Canvas {
     this.addObject(treeCrown);
     this.addFigure(new Rocket(this));
     this.addFigure(new Bird(this));
-    this.addObject(new Item(this, -2*8, 1*8, 16, 12, 'jetpac'));
+    this.addObject(new Item(this, -2*8, 1*8, 16, 12, 'jetpac', {targetId: '@willy', figureType: 1}));
 
     // garage - right side
     this.addObject(new Floor(this, 40*8, 0*8, 8*8, 'grass'));
@@ -224,24 +224,25 @@ export class Canvas {
       this.pressKeyUp = 1;
     }
   
+/*
     if ((key == 'c') || (key == 'C')) {
       if ((this.willy.figureType == 0) && !this.willy.jump && !this.willy.falling) {
         this.willy.figureType = 1;
         this.willy.elementObj.src = 'images/willy-jetpac.png';
         this.willy.imageWidth = 12;
       } 
-/*      else if (this.willy.figureType == 1) {
+      else if (this.willy.figureType == 1) {
         this.willy.figureType = 2;
         this.willy.elementObj.src = 'images/willy-plane.png';
         this.willy.imageWidth = 32;
-      }/**/
+      }
       else {
         this.willy.figureType = 0;
         this.willy.elementObj.src = 'images/willy.png';
         this.willy.imageWidth = 12;
       }
       this.sceneRender();
-    }
+    }*/
   } // eventKeyDown(key)
   
   

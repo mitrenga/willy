@@ -54,15 +54,22 @@ export class Item extends Object {
     this.catch = 0;
     this.imgElementObj.style.visibility = 'hidden';
     if (this.action != null) {
-      for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
-        if (this.canvas.arrayObjects[i].targetId == this.action['targetId']) {
-          if (this.action['movePosY'])
-            this.canvas.arrayObjects[i].movePosY = this.action['movePosY'];
-          if (this.action['moveHeight'])
-            this.canvas.arrayObjects[i].moveHeight = this.action['moveHeight'];
-          break;
-        }
-      }    
+      if (this.action['targetId'] == '@willy') {
+        this.canvas.willy.figureType = 1;
+        this.canvas.willy.elementObj.src = 'images/willy-jetpac.png';
+        this.canvas.willy.imageWidth = 12;
+        this.canvas.willy.render();
+      } else {
+        for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
+          if (this.canvas.arrayObjects[i].targetId == this.action['targetId']) {
+            if (this.action['movePosY'])
+              this.canvas.arrayObjects[i].movePosY = this.action['movePosY'];
+            if (this.action['moveHeight'])
+              this.canvas.arrayObjects[i].moveHeight = this.action['moveHeight'];
+            break;
+          }
+        }    
+      }
     }
   } // capture
 
