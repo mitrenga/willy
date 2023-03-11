@@ -44,12 +44,13 @@ export class Canvas {
     // first floor
     this.addObject(new Floor(this, 0*8, 0*8, 40*8, 'concrete'));
     this.addObject(new Wall(this, 0*8, 1*8, 1*8, 11*8, 'wall'));
+    this.addObject(new Item(this, -1*8, 11*8, 8, 8, 'key', {targetId: 'door#03', movePosY: 2*8, moveHeight: -2*8}));
     this.addObject(new StairRight(this, 10*8, 1*8));
     this.addObject(new StairRight(this, 11*8, 2*8));
     this.addObject(new StairRight(this, 12*8, 3*8));
     this.addObject(new Wall(this, 13*8, 1*8, 1*8, 3*8, 'wall'));
     this.addObject(new Floor(this, 7*8, 4*8, 3*8, 'floor'));
-    this.addObject(new Wall(this, 13*8, 4*8, 1*8, 3*8, 'grille'));
+    this.addObject(new Wall(this, 13*8, 4*8, 1*8, 3*8, 'grille',  'door#01'));
     this.addObject(new Conveyor(this, 4*8, 6*8, 9*8, 'right'));
 
     this.addObject(new Floor(this, 14*8, 3*8, 8*8, 'floor'));
@@ -59,8 +60,8 @@ export class Canvas {
     this.addFigure(new Alien(this, '002', 2, (34-17)*8, (7-3)*8, 14, (34-34)*8, 39*8));
 
     this.addObject(new Wall(this, 39*8, 4*8, 1*8, 8*8, 'wall')); 
-    this.addObject(new Wall(this, 39*8, 1*8, 1*8, 3*8, 'grille', 'door#01'));
-    this.addObject(new Item(this, 38*8, 4*8, 8, 8, 'key', {targetId: 'door#01', movePosY: 2*8, moveHeight: -2*8}));
+    this.addObject(new Wall(this, 39*8, 1*8, 1*8, 3*8, 'grille', 'door#02'));
+    this.addObject(new Item(this, 38*8, 4*8, 8, 8, 'key', {targetId: 'door#02', movePosY: 2*8, moveHeight: -2*8}));
 
     // stair
     for (let i = 28; i < 34; i++) {
@@ -84,7 +85,7 @@ export class Canvas {
     this.addObject(new Floor(this, 34*8, 14*8, 3*8, 'floor'));
     this.addObject(new Floor(this, 30*8, 16*8, 3*8, 'floor'));
     this.addObject(new Wall(this, 20*8, 20*8, 1*8, 11*8, 'wall'));
-    this.addObject(new Item(this, 20*8, 31*8, 8, 8, 'key'));
+    this.addObject(new Item(this, 20*8, 31*8, 8, 8, 'key', {targetId: 'door#01', movePosY: 2*8}));
     this.addObject(new Conveyor(this, 21*8, 19*8, 5*8, 'right'));
     this.addObject(new Conveyor(this, 21*8, 23*8, 3*8, 'right'));
     this.addObject(new Conveyor(this, 21*8, 27*8, 1*8, 'right'));
@@ -122,11 +123,11 @@ export class Canvas {
     // garage - right side
     this.addObject(new Floor(this, 40*8, 0*8, 8*8, 'grass'));
     this.addObject(new Floor(this, 48*8, 0*8, 116*8, 'road'));
-    this.addObject(new Wall(this, 48*8, 1*8, 1*8, 3*8, 'grille'));
+    this.addObject(new Wall(this, 48*8, 1*8, 1*8, 3*8, 'grille', 'door#03'));
     this.addObject(new Wall(this, 48*8, 4*8, 1*8, 2*8, 'wall'));
-    this.addObject(new Wall(this, 63*8, 1*8, 1*8, 3*8, 'grille'));
+    this.addObject(new Wall(this, 63*8, 1*8, 1*8, 3*8, 'grille',  'door#04'));
     this.addObject(new Wall(this, 63*8, 4*8, 1*8, 2*8, 'wall'));
-    this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key'));
+    this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key', {targetId: 'door#04', movePosY: 2*8, moveHeight: -2*8}));
     this.addObject(new Wall(this, 46*8, 6*8, 20*8, 1*8, 'ceiling'));
     this.addFigure(new Car(this));
     var labelStore = new Wall(this, 80*8, 1*8, 32, 32, 'labelStore')
