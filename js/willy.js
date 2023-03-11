@@ -2,12 +2,9 @@ const { Figure } = await import('./figure.js?ver='+window.srcVersion);
 
 export class Willy extends Figure {
 
-  figureType = 0;
-
-
   constructor(canvas) {
     super(canvas, 'willy', 'willy', 'images/willy.png');
-    this.posX = -4*8;
+    this.posX = 14*8;
     this.posY = 1*8;
     this.mainFigure = 1;
   } // constructor

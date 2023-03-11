@@ -127,7 +127,7 @@ export class Canvas {
     this.addObject(new Wall(this, 63*8, 1*8, 1*8, 3*8, 'grille'));
     this.addObject(new Wall(this, 63*8, 4*8, 1*8, 2*8, 'wall'));
     this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key'));
-    this.addObject(new Floor(this, 46*8, 6*8, 20*8, 'ceiling'));
+    this.addObject(new Wall(this, 46*8, 6*8, 20*8, 1*8, 'ceiling'));
     this.addFigure(new Car(this));
     var labelStore = new Wall(this, 80*8, 1*8, 32, 32, 'labelStore')
     labelStore.backgroundSize = 32;
@@ -220,7 +220,7 @@ export class Canvas {
       this.pressKeyRight = 1;
     }
   
-    if (((key == ' ') || (key == 'ArrowUp')) && (!this.willy.figureType)) {
+    if ((key == ' ') || (key == 'ArrowUp')) {
       this.pressKeyUp = 1;
     }
   } // eventKeyDown(key)

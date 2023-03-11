@@ -58,22 +58,22 @@ export class Item extends Object {
         if (this.action['figureType']) {
           this.canvas.willy.figureType = this.action['figureType'];
           switch (this.action['figureType']) {
-            case 0: {
+            case 0: { // Willy
               this.canvas.willy.elementObj.src = 'images/willy.png';
               this.canvas.willy.imageWidth = 12;
                     break;
             }
-            case 1: {
+            case 1: { // Jetpac
               this.canvas.willy.elementObj.src = 'images/willy-jetpac.png';
               this.canvas.willy.imageWidth = 12;
               break;
             }
-            case 2: {
+            case 2: { // Willy in car
               this.canvas.willy.elementObj.src = 'images/willy-car.png';
               this.canvas.willy.imageWidth = 32;
               break;
             }
-            case 3: {
+            case 3: { // Willy in plane
               this.canvas.willy.elementObj.src = 'images/willy-plane.png';
               this.canvas.willy.imageWidth = 32;
               break;

@@ -17,6 +17,7 @@ export class Figure {
   jumpCounter = 0;
   falling = 0;
   mainFigure = 0;
+  figureType = 0;
 
   jumpMap = [0, 4, 4, 3, 3, 2, 2, 1, 1, 0, -1, -1, -2, -2, -3, -3, -4, -4];
 
@@ -35,15 +36,18 @@ export class Figure {
 
   loop() {
     if (this.falling) {
-      for (let i = 0; i < 4; i++) {
-        this.posY -= 1;
-        if (this.isLanding ()) {
-          this.falling = 0;
-          break;
+      if ((this.figureType == 1) && (this.pressKeyUp())) { // Jetpac
+
+      } else {
+        for (let i = 0; i < 4; i++) {
+          this.posY -= 1;
+          if (this.isLanding ()) {
+            this.falling = 0;
+            break;
+          }
         }
+        return;
       }
-      this.canvas.sceneRender();
-      return;
     }
 
     if (((this.pressKeyLeft() && !this.mustGoRight() || this.mustGoLeft()) && (!this.jumpCounter)) || (this.jumpDirection == 1)) {
@@ -90,58 +94,78 @@ export class Figure {
       this.checkFalling();
     }
   
-    if (((this.pressKeyUp()) || (this.jumpCounter)) && (!this.falling)) {
-      if (this.jumpCounter == 0) {
-        if (this.canvas.pressKeyLeft && !this.canvas.pressKeyRight && !this.mustGoRight() || this.mustGoLeft())
-          this.jumpDirection = 1;
-        if (this.canvas.pressKeyRight && !this.canvas.pressKeyLeft && !this.mustGoLeft() || this.mustGoRight())
-          this.jumpDirection = 2;
-          
-        if (!this.isHeadImpact(this.jumpMap[1])) {
-          this.jumpCounter = 1;
-          this.jump += this.jumpMap[this.jumpCounter];
-        }
-        else {
-          this.jumpDirection = 0;
-        }
-      }
-      else {
-        this.jumpCounter++;
-        if (this.jumpMap[this.jumpCounter] < 0) {
-          for (let i = 0; i > this.jumpMap[this.jumpCounter]; i--) {
-            if (this.isLanding ()) {
-              if (this.mainFigure) {
-                this.canvas.deltaY += this.jump;
-                this.jump = 0;
+    switch (this.figureType) {
+      case 0: { // Willy
+        if (((this.pressKeyUp()) || (this.jumpCounter))) {
+          if (this.jumpCounter == 0) {
+            if (this.canvas.pressKeyLeft && !this.canvas.pressKeyRight && !this.mustGoRight() || this.mustGoLeft())
+              this.jumpDirection = 1;
+            if (this.canvas.pressKeyRight && !this.canvas.pressKeyLeft && !this.mustGoLeft() || this.mustGoRight())
+              this.jumpDirection = 2;
+              
+            if (!this.isHeadImpact(this.jumpMap[1])) {
+              this.jumpCounter = 1;
+              this.jump += this.jumpMap[this.jumpCounter];
+            }
+            else {
+              this.jumpDirection = 0;
+            }
+          }
+          else {
+            this.jumpCounter++;
+            if (this.jumpMap[this.jumpCounter] < 0) {
+              for (let i = 0; i > this.jumpMap[this.jumpCounter]; i--) {
+                if (this.isLanding ()) {
+                  if (this.mainFigure) {
+                    this.canvas.deltaY += this.jump;
+                    this.jump = 0;
+                  }
+                  this.jumpCounter = 0;
+                  this.jumpDirection = 0;
+                  break;
+                }
+                this.jump -= 1;
               }
+            }
+            else {
+              this.jump += this.jumpMap[this.jumpCounter];
+              if (this.isHeadImpact (this.jumpMap[this.jumpCounter])) {
+                if (this.mainFigure) {
+                  this.canvas.deltaY += this.jump;
+                  this.jump = 0;
+                }
+                this.jumpCounter = 0;
+                this.jumpDirection = 0;
+                this.checkFalling();
+              }
+            }
+      
+            if (this.jumpCounter == 17) {
               this.jumpCounter = 0;
               this.jumpDirection = 0;
+              this.checkFalling();
+            }
+          }
+          this.render();
+        }
+        break;
+      } // case 0 - Willy
+
+      case 1: { // Jetpac
+        if (this.pressKeyUp()) {
+          for (let i = 0; i < 4; i++) {
+            if (this.isHeadImpact (0)) {
               break;
             }
-            this.jump -= 1;
+            this.posY += 1;
           }
-        }
-        else {
-          this.jump += this.jumpMap[this.jumpCounter];
-          if (this.isHeadImpact (this.jumpMap[this.jumpCounter])) {
-            if (this.mainFigure) {
-              this.canvas.deltaY += this.jump;
-              this.jump = 0;
-            }
-            this.jumpCounter = 0;
-            this.jumpDirection = 0;
-            this.checkFalling();
-          }
-        }
-  
-        if (this.jumpCounter == 17) {
-          this.jumpCounter = 0;
-          this.jumpDirection = 0;
+        } else {
           this.checkFalling();
         }
-      }
-      this.render();
-    }
+        break;
+      } // case 1 - Jetpac
+
+    } // switch
   } // loop
 
 
@@ -204,15 +228,19 @@ export class Figure {
 
   
   checkFalling() {
+    if ((this.figureType == 1) && (this.pressKeyUp())) {
+      return;
+    }
     if (this.jumpCounter) {
       return;
     }
+
     var deltaStairY = this.posY%8;
     if (deltaStairY == 0)
       deltaStairY = 8;
 
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
-      if ((!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
+      if ((!this.canvas.arrayObjects[i].item) && (!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
           (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
