@@ -54,7 +54,7 @@ export class Canvas {
     this.addObject(new Floor(this, 14*8, 3*8, 8*8, 'floor'));
     this.addFigure(new Alien(this, '001', 1, 14*8, 4*8, 12, 14*8, 22*8));
 
-    this.addObject(new Wall(this, 34*8, 6*8, 5*8, 1*8, 'ceiling'));
+    this.addObject(new Floor(this, 34*8, 6*8, 5*8, 'floor'));
     this.addFigure(new Alien(this, '002', 2, (34-17)*8, (7-3)*8, 14, (34-34)*8, 39*8));
 
     this.addObject(new Wall(this, 39*8, 4*8, 1*8, 8*8, 'wall')); 
