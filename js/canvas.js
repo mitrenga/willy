@@ -21,6 +21,7 @@ export class Canvas {
   deltaY = 0;
   arrayFigures = new Array();
   arrayObjects = new Array();
+  arrayItems = new Array();
   willy = null;
   loopCounter = 0;
   animationCounter = 0;
@@ -143,6 +144,8 @@ export class Canvas {
 
   addObject(object) {
     this.arrayObjects.push(object);
+    if (object.catch)
+      this.arrayItems.push(object);
   } // addObject
 
 
@@ -182,6 +185,9 @@ export class Canvas {
 
     for (let i = 0; i < this.arrayFigures.length; i++) {
       this.arrayFigures[i].loop();
+    }
+    for (let i = 0; i < this.arrayItems.length; i++) {
+      this.arrayItems[i].checkTouch();
     }
   } // sceneLoop
 

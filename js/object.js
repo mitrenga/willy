@@ -12,6 +12,8 @@ export class Object {
   impenetrable = 0;
   leftStair = 0;
   rightStair = 0;
+  item = 0;
+  catch = 0;
 
   constructor(canvas, posX, posY, width, height, cssClass) {
     this.canvas = canvas;
@@ -38,5 +40,13 @@ export class Object {
 
   animate() {
   } // animate
+
+
+  checkTouch() {
+  } // checkTouch
+
+
+  capture() {
+  } // capture
   
 } // class Object

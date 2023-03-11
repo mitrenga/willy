@@ -12,6 +12,9 @@ export class Item extends Object {
     this.imgElementObj.className = 'itemImg';
     this.imgElementObj.src = 'images/'+image+'.png';
     this.elementObj.appendChild(this.imgElementObj);
+
+    this.item = 1;
+    this.catch = 1;
   } // constructor
 
 
@@ -25,7 +28,29 @@ export class Item extends Object {
 
 
   animate() {
-    this.imgElementObj.style.objectPosition =  -(this.canvas.longAnimationCounter*this.width)*this.canvas.scale+'px';
+    if (this.catch == 1)
+      this.imgElementObj.style.objectPosition =  -(this.canvas.longAnimationCounter*this.width)*this.canvas.scale+'px';
   } // animate
+
+  
+  checkTouch() {
+    if (!this.catch)
+      return;
+
+    if ((this.canvas.willy.posX+this.canvas.willy.imageWidth-2 <= this.posX) ||
+        (this.canvas.willy.posX >= this.posX+this.width) ||
+        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY+this.canvas.willy.imageHeight <= this.posY) ||
+        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY >= this.posY+this.height))
+    {
+      return;
+    }
+    this.capture();
+  } // checkTouch
+
+
+  capture() {
+    this.catch = 0;
+    this.imgElementObj.style.visibility = 'hidden';
+  } // capture
 
 } // class Item

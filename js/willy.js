@@ -7,7 +7,7 @@ export class Willy extends Figure {
 
   constructor(canvas) {
     super(canvas, 'willy', 'willy', 'images/willy.png');
-    this.posX = 14*8;
+    this.posX = 24*8;
     this.posY = 1*8;
     this.mainFigure = 1;
   } // constructor

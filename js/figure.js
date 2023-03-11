@@ -179,7 +179,7 @@ export class Figure {
       deltaStairY = 8;
 
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
-      if ((!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
+      if ((!this.canvas.arrayObjects[i].item) && (!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
           (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
