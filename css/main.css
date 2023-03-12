@@ -14,6 +14,15 @@ body {margin: 0; position: fixed; background-color: #666; overflow: hidden; touc
   -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: -moz-none; -o-user-select: none; user-select: none;
 }
 
+.crashAnimation {
+  animation: crashAnimation 0.5s;
+}
+
+@keyframes crashAnimation {
+  from {background-color: red;}
+  to {background-color: yellow;}
+}
+
 .willy {position: absolute; height: 3em; object-fit: cover; z-index: 0;}
 .kate {position: absolute; object-fit: cover; z-index: 0;}
 .rocket {position: absolute; object-fit: cover;}

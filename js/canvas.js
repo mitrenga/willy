@@ -31,6 +31,8 @@ export class Canvas {
   pressKeyLeft = 0;
   pressKeyRight = 0;
 
+  pauseGame = 0;
+
 
   constructor() {
     this.sceneInit();
@@ -158,6 +160,9 @@ export class Canvas {
 
 
   sceneLoop() {
+    if (this.pauseGame)
+      return;
+
     if (this.deltaY > 0) {
       this.deltaY--;
       this.willy.posY++;
@@ -197,6 +202,9 @@ export class Canvas {
     for (let i = 0; i < this.arrayItems.length; i++) {
       this.arrayItems[i].checkTouch();
     }
+    for (let i = 0; i < this.arrayFigures.length; i++) {
+      this.arrayFigures[i].checkTouch();
+    }
   } // sceneLoop
 
 
@@ -218,6 +226,19 @@ export class Canvas {
     }
   } // sceneAnimate
 
+
+  resetRoom() {
+    this.willy.posX = 11*8+4;
+    this.willy.posY = 1*8;
+    this.willy.step = 0;
+    this.willy.direction = 0;
+    this.willy.jump = 0;
+    this.willy.jumpDirection = 0;
+    this.willy.jumpCounter = 0;
+    this.willy.falling = 0;
+    this.willy.figureType = 0;
+    this.deltaY = 0;
+    } // resetRoom
 
   eventKeyDown(key) {
     if (key == 'ArrowLeft') {

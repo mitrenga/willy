@@ -18,6 +18,7 @@ export class Figure {
   falling = 0;
   mainFigure = 0;
   figureType = 0;
+  alien = 0;
 
   jumpMap = [0, 4, 4, 3, 3, 2, 2, 1, 1, 0, -1, -1, -2, -2, -3, -3, -4, -4];
 
@@ -444,5 +445,33 @@ export class Figure {
 
     return 0;
   } // isStairLeftDown
+
+
+  checkTouch() {
+    if (!this.alien)
+      return;
+
+    if ((this.canvas.willy.posX+this.canvas.willy.imageWidth-2 <= this.posX) ||
+        (this.canvas.willy.posX >= this.posX+this.imageWidth) ||
+        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY+this.canvas.willy.imageHeight <= this.posY) ||
+        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY >= this.posY+this.imageHeight))
+    {
+      return;
+    }
+    this.capture();
+  } // checkTouch
+
+
+  capture() {
+    if (!this.canvas.elementObj.classList.contains('crashAnimation'))
+      this.canvas.elementObj.classList.add('crashAnimation');
+    this.canvas.elementObj.style.animationName = 'none';
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        this.canvas.elementObj.style.animationName = ''
+      }, 0);
+    });
+    this.canvas.resetRoom();
+  } // capture
 
 } // class Figure

@@ -41,7 +41,7 @@ export class Item extends Object {
       return;
 
     if ((this.canvas.willy.posX+this.canvas.willy.imageWidth-2 <= this.posX) ||
-        (this.canvas.willy.posX >= this.posX+this.width) ||
+        (this.canvas.willy.posX >= this.posX+this.width) ||
         (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY+this.canvas.willy.imageHeight <= this.posY) ||
         (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY >= this.posY+this.height))
     {

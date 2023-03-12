@@ -12,6 +12,7 @@ export class Alien extends Figure {
     this.imageWidth = imageWidth;
     this.minX = minX;
     this.maxX = maxX;
+    this.alien = 1;
   } // constructor
 
 
