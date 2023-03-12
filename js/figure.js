@@ -99,7 +99,7 @@ export class Figure {
             this.step = 0;
           }
         } // not Jetpac
-        
+
         if (this.canGoRight()) {
           this.posX += 2;
           if (this.isStairRightUp()) {
@@ -211,8 +211,8 @@ export class Figure {
   } // render
 
 
-  animation() {
-  } // animation
+  animate() {
+  } // animate
   
 
   pressKeyLeft() {

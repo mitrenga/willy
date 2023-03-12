@@ -5,7 +5,7 @@ var canvas = new Canvas();
 // init app
 window.addEventListener('resize', resize);
 canvas.sceneRender();
-canvas.sceneAnimation();
+canvas.sceneAnimate();
 setInterval(onLoop, 1000/60);
 
 

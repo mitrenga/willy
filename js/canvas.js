@@ -185,7 +185,7 @@ export class Canvas {
           this.longAnimationCounter = 0;
         }
       }
-      this.sceneAnimation();
+      this.sceneAnimate();
     }
   
     if (((this.willy.figureType == 0) || (this.willy.figureType == 1)) && (this.loopCounter != 0))
@@ -212,11 +212,11 @@ export class Canvas {
   } // sceneRender
 
 
-  sceneAnimation() {
+  sceneAnimate() {
     for (let i = 0; i < this.arrayObjects.length; i++) {
       this.arrayObjects[i].animate();
     }
-  } // sceneAnimation
+  } // sceneAnimate
 
 
   eventKeyDown(key) {
