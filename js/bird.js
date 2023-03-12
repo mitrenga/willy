@@ -6,8 +6,8 @@ export class Bird extends Figure {
     super(canvas, 'bird', 'bird', 'images/bird.png');
     this.posX = -20*8;
     this.posY = 10*8;
-    this.imageHeight = 16;
-    this.imageWidth = 16;
+    this.imgHeight = 16;
+    this.imgWidth = 16;
   } // constructor
 
   pressKeyLeft() {
@@ -24,7 +24,7 @@ export class Bird extends Figure {
 
   pressKeyRight() {
     if (this.direction == 0) {
-      if (this.posX+this.imageWidth-2 < -10*8) {
+      if (this.posX+this.imgWidth-2 < -10*8) {
         return 1;
       }
       else {

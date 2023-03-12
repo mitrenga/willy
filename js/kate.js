@@ -24,7 +24,7 @@ export class Kate extends Figure {
 
   pressKeyRight() {
     if (this.direction == 0) {
-      if (this.posX+this.imageWidth-2 < 13*8) {
+      if (this.posX+this.imgWidth-2 < 13*8) {
         return 1;
       }
       else {

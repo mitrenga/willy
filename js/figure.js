@@ -4,12 +4,10 @@ export class Figure {
   elementId = null;
   elementObj = null;
   imageFileName = '';
-  imageWidth = 12;
-  imageHeight = 16;
+  imgWidth = 12;
+  imgHeight = 16;
   posX = 0;
   posY = 0;
-  imageWidth = 12;
-  imageHeight = 16;
   step = 0;
   direction = 0;
   jump = 0;
@@ -205,10 +203,10 @@ export class Figure {
 
   render() {
     this.elementObj.style.left = this.canvas.width/2-(this.canvas.willy.posX+8-this.posX)*this.canvas.scale+'px';
-    this.elementObj.style.top = this.canvas.height/2-(this.posY+this.jump-this.canvas.willy.posY+this.imageHeight-8)*this.canvas.scale+'px';
-    this.elementObj.style.width = (this.imageWidth-2)*this.canvas.scale+'px';
-    this.elementObj.style.height = this.imageHeight*this.canvas.scale+'px';
-    this.elementObj.style.objectPosition = -(1+this.step*this.imageWidth+this.direction*this.imageWidth*4)*this.canvas.scale+'px';
+    this.elementObj.style.top = this.canvas.height/2-(this.posY+this.jump-this.canvas.willy.posY+this.imgHeight-8)*this.canvas.scale+'px';
+    this.elementObj.style.width = (this.imgWidth-2)*this.canvas.scale+'px';
+    this.elementObj.style.height = this.imgHeight*this.canvas.scale+'px';
+    this.elementObj.style.objectPosition = -(1+this.step*this.imgWidth+this.direction*this.imgWidth*4)*this.canvas.scale+'px';
   } // render
 
 
@@ -239,14 +237,14 @@ export class Figure {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((!this.canvas.arrayObjects[i].item) && (!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
+          (this.posX+this.imgWidth-2 > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
       {
         return 1;
       }
       if ((this.canvas.arrayObjects[i].rightStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
-          (this.posX+this.imageWidth-4 == this.canvas.arrayObjects[i].posX+deltaStairY))
+          (this.posX+this.imgWidth-4 == this.canvas.arrayObjects[i].posX+deltaStairY))
       {
         return 1;
       }
@@ -276,14 +274,14 @@ export class Figure {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((!this.canvas.arrayObjects[i].item) && (!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
+          (this.posX+this.imgWidth-2 > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
       {
         return;
       }
       if ((this.canvas.arrayObjects[i].rightStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
-          (this.posX+this.imageWidth-4 == this.canvas.arrayObjects[i].posX+deltaStairY))
+          (this.posX+this.imgWidth-4 == this.canvas.arrayObjects[i].posX+deltaStairY))
       {
         return;
       }
@@ -301,11 +299,11 @@ export class Figure {
   isHeadImpact(jump) {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
-          (Math.abs(this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight-this.canvas.arrayObjects[i].posY) <= jump) &&
+          (Math.abs(this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imgHeight-this.canvas.arrayObjects[i].posY) <= jump) &&
           (((this.posX >= this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width)) ||
-          ((this.posX+this.imageWidth-2 > this.canvas.arrayObjects[i].posX) &&
-          (this.posX+this.imageWidth-2 <= this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))))
+          ((this.posX+this.imgWidth-2 > this.canvas.arrayObjects[i].posX) &&
+          (this.posX+this.imgWidth-2 <= this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))))
       {
         return 1;
       }
@@ -319,7 +317,7 @@ export class Figure {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].leftConveyor) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posX+this.imageWidth > this.canvas.arrayObjects[i].posX) &&
+          (this.posX+this.imgWidth > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
       {
         return 1;
@@ -334,7 +332,7 @@ export class Figure {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].rightConveyor) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
-          (this.posX+this.imageWidth > this.canvas.arrayObjects[i].posX) &&
+          (this.posX+this.imgWidth > this.canvas.arrayObjects[i].posX) &&
           (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
       {
         return 1;
@@ -351,9 +349,9 @@ export class Figure {
       toleration = 0;
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
-          (this.posX+this.imageWidth-2 == this.canvas.arrayObjects[i].posX) &&
+          (this.posX+this.imgWidth-2 == this.canvas.arrayObjects[i].posX) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height-toleration) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight > this.canvas.arrayObjects[i].posY))
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imgHeight > this.canvas.arrayObjects[i].posY))
       {
         return 0;
       }
@@ -371,7 +369,7 @@ export class Figure {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
           (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height-toleration) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imageHeight > this.canvas.arrayObjects[i].posY))
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imgHeight > this.canvas.arrayObjects[i].posY))
       {
         return 0;
       }
@@ -386,7 +384,7 @@ export class Figure {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].rightStair) &&
       (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
-      (this.posX+this.imageWidth-6 == this.canvas.arrayObjects[i].posX+deltaStairY))
+      (this.posX+this.imgWidth-6 == this.canvas.arrayObjects[i].posX+deltaStairY))
       {
         return 1;
       }
@@ -404,7 +402,7 @@ export class Figure {
       for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
         if ((this.canvas.arrayObjects[i].rightStair) &&
         (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
-        (this.posX+this.imageWidth-4 == this.canvas.arrayObjects[i].posX+deltaStairY-2))
+        (this.posX+this.imgWidth-4 == this.canvas.arrayObjects[i].posX+deltaStairY-2))
         {
           return 1;
         }
@@ -451,10 +449,10 @@ export class Figure {
     if (!this.alien)
       return;
 
-    if ((this.canvas.willy.posX+this.canvas.willy.imageWidth-2 <= this.posX) ||
-        (this.canvas.willy.posX >= this.posX+this.imageWidth) ||
-        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY+this.canvas.willy.imageHeight <= this.posY) ||
-        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY >= this.posY+this.imageHeight))
+    if ((this.canvas.willy.posX+this.canvas.willy.imgWidth-2 <= this.posX) ||
+        (this.canvas.willy.posX >= this.posX+this.imgWidth) ||
+        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY+this.canvas.willy.imgHeight <= this.posY) ||
+        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY >= this.posY+this.imgHeight))
     {
       return;
     }

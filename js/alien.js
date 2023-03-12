@@ -5,11 +5,11 @@ export class Alien extends Figure {
   minX = 0;
   maxX = 0;
 
-  constructor(canvas, version, id, posX, posY, imageWidth, minX, maxX) {
+  constructor(canvas, version, id, posX, posY, imgWidth, minX, maxX) {
     super(canvas, 'alien'+version+id, 'alien', 'images/alien'+version+'.png');
     this.posX = posX;
     this.posY = posY;
-    this.imageWidth = imageWidth;
+    this.imgWidth = imgWidth;
     this.minX = minX;
     this.maxX = maxX;
     this.alien = 1;
@@ -31,7 +31,7 @@ export class Alien extends Figure {
 
   pressKeyRight() {
     if (this.direction == 0) {
-      if (this.posX+this.imageWidth-2 < this.maxX) {
+      if (this.posX+this.imgWidth-2 < this.maxX) {
         return 1;
       }
       else {

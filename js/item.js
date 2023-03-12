@@ -40,9 +40,9 @@ export class Item extends Object {
     if (!this.catch)
       return;
 
-    if ((this.canvas.willy.posX+this.canvas.willy.imageWidth-2 <= this.posX) ||
+    if ((this.canvas.willy.posX+this.canvas.willy.imgWidth-2 <= this.posX) ||
         (this.canvas.willy.posX >= this.posX+this.width) ||
-        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY+this.canvas.willy.imageHeight <= this.posY) ||
+        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY+this.canvas.willy.imgHeight <= this.posY) ||
         (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY >= this.posY+this.height))
     {
       return;
@@ -61,22 +61,22 @@ export class Item extends Object {
           switch (this.action['figureType']) {
             case 0: { // Willy
               this.canvas.willy.elementObj.src = 'images/willy.png';
-              this.canvas.willy.imageWidth = 12;
+              this.canvas.willy.imgWidth = 12;
                     break;
             }
             case 1: { // Jetpac
               this.canvas.willy.elementObj.src = 'images/willy-jetpac.png';
-              this.canvas.willy.imageWidth = 12;
+              this.canvas.willy.imgWidth = 12;
               break;
             }
             case 2: { // Willy in car
               this.canvas.willy.elementObj.src = 'images/willy-car.png';
-              this.canvas.willy.imageWidth = 32;
+              this.canvas.willy.imgWidth = 32;
               break;
             }
             case 3: { // Willy in plane
               this.canvas.willy.elementObj.src = 'images/willy-plane.png';
-              this.canvas.willy.imageWidth = 32;
+              this.canvas.willy.imgWidth = 32;
               break;
             }
           } // switch
