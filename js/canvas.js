@@ -15,8 +15,8 @@ const { Item } = await import('./item.js?ver='+window.srcVersion);
 
 export class Canvas {
   elementObj = document.getElementById('canvas');
-  width = 0;
-  height = 0;
+  canvasWidth = 0;
+  canvasHeight = 0;
   scale = 1;
   deltaY = 0;
   arrayFigures = new Array();
@@ -209,8 +209,8 @@ export class Canvas {
 
 
   sceneRender() {
-    this.width = this.elementObj.clientWidth;
-    this.height = this.elementObj.clientHeight;
+    this.canvasWidth = this.elementObj.clientWidth;
+    this.canvasHeight = this.elementObj.clientHeight;
     for (let i = 0; i < this.arrayFigures.length; i++) {
       this.arrayFigures[i].render();
     }

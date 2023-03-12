@@ -5,8 +5,8 @@ export class Item extends Object {
   imgElementObj = null;
   action = null;
 
-  constructor(canvas, posX, posY, width, height, image, action = null) {
-    super(canvas, posX, posY, width, height, 'item');
+  constructor(canvas, posX, posY, imgWidth, imgHeight, image, action = null) {
+    super(canvas, posX, posY, imgWidth, imgHeight, 'item');
 
     this.cssClass = image;
     this.imgElementObj = document.createElement('img');
@@ -25,14 +25,14 @@ export class Item extends Object {
     super.render();
     this.imgElementObj.left = 8*this.canvas.scale+'px';
     this.imgElementObj.style.top = '0px';
-    this.imgElementObj.style.width = (this.width-1)*this.canvas.scale+'px';
-    this.imgElementObj.style.height = this.height*this.canvas.scale+'px';
+    this.imgElementObj.style.width = (this.imgWidth-1)*this.canvas.scale+'px';
+    this.imgElementObj.style.height = this.imgHeight*this.canvas.scale+'px';
   } // render
 
 
   animate() {
     if (this.catch == 1)
-      this.imgElementObj.style.objectPosition =  -(this.canvas.longAnimationCounter*this.width)*this.canvas.scale+'px';
+      this.imgElementObj.style.objectPosition =  -(this.canvas.longAnimationCounter*this.imgWidth)*this.canvas.scale+'px';
   } // animate
 
   
@@ -41,9 +41,9 @@ export class Item extends Object {
       return;
 
     if ((this.canvas.willy.posX+this.canvas.willy.imgWidth-2 <= this.posX) ||
-        (this.canvas.willy.posX >= this.posX+this.width) ||
+        (this.canvas.willy.posX >= this.posX+this.imgWidth) ||
         (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY+this.canvas.willy.imgHeight <= this.posY) ||
-        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY >= this.posY+this.height))
+        (this.canvas.willy.posY+this.canvas.willy.jump+this.canvas.deltaY >= this.posY+this.imgHeight))
     {
       return;
     }

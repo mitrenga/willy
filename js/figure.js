@@ -202,8 +202,8 @@ export class Figure {
 
 
   render() {
-    this.elementObj.style.left = this.canvas.width/2-(this.canvas.willy.posX+8-this.posX)*this.canvas.scale+'px';
-    this.elementObj.style.top = this.canvas.height/2-(this.posY+this.jump-this.canvas.willy.posY+this.imgHeight-8)*this.canvas.scale+'px';
+    this.elementObj.style.left = this.canvas.canvasWidth/2-(this.canvas.willy.posX+8-this.posX)*this.canvas.scale+'px';
+    this.elementObj.style.top = this.canvas.canvasHeight/2-(this.posY+this.jump-this.canvas.willy.posY+this.imgHeight-8)*this.canvas.scale+'px';
     this.elementObj.style.width = (this.imgWidth-2)*this.canvas.scale+'px';
     this.elementObj.style.height = this.imgHeight*this.canvas.scale+'px';
     this.elementObj.style.objectPosition = -(1+this.step*this.imgWidth+this.direction*this.imgWidth*4)*this.canvas.scale+'px';
@@ -236,9 +236,9 @@ export class Figure {
 
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((!this.canvas.arrayObjects[i].item) && (!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].imgHeight) &&
           (this.posX+this.imgWidth-2 > this.canvas.arrayObjects[i].posX) &&
-          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
+          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth))
       {
         return 1;
       }
@@ -250,7 +250,7 @@ export class Figure {
       }
       if ((this.canvas.arrayObjects[i].leftStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
-          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY-2))
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth-deltaStairY-2))
       {
         return 1;
       }
@@ -273,9 +273,9 @@ export class Figure {
 
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((!this.canvas.arrayObjects[i].item) && (!this.canvas.arrayObjects[i].rightStair) && (!this.canvas.arrayObjects[i].leftStair) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].imgHeight) &&
           (this.posX+this.imgWidth-2 > this.canvas.arrayObjects[i].posX) &&
-          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
+          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth))
       {
         return;
       }
@@ -287,7 +287,7 @@ export class Figure {
       }
       if ((this.canvas.arrayObjects[i].leftStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
-          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY-2))
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth-deltaStairY-2))
       {
         return;
       }
@@ -301,9 +301,9 @@ export class Figure {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
           (Math.abs(this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imgHeight-this.canvas.arrayObjects[i].posY) <= jump) &&
           (((this.posX >= this.canvas.arrayObjects[i].posX) &&
-          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width)) ||
+          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth)) ||
           ((this.posX+this.imgWidth-2 > this.canvas.arrayObjects[i].posX) &&
-          (this.posX+this.imgWidth-2 <= this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))))
+          (this.posX+this.imgWidth-2 <= this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth))))
       {
         return 1;
       }
@@ -316,9 +316,9 @@ export class Figure {
   mustGoLeft() {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].leftConveyor) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].imgHeight) &&
           (this.posX+this.imgWidth > this.canvas.arrayObjects[i].posX) &&
-          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
+          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth))
       {
         return 1;
       }
@@ -331,9 +331,9 @@ export class Figure {
   mustGoRight() {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].rightConveyor) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].imgHeight) &&
           (this.posX+this.imgWidth > this.canvas.arrayObjects[i].posX) &&
-          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width))
+          (this.posX < this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth))
       {
         return 1;
       }
@@ -350,7 +350,7 @@ export class Figure {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
           (this.posX+this.imgWidth-2 == this.canvas.arrayObjects[i].posX) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height-toleration) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].imgHeight-toleration) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imgHeight > this.canvas.arrayObjects[i].posY))
       {
         return 0;
@@ -367,8 +367,8 @@ export class Figure {
       toleration = 0;
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].impenetrable) &&
-          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width) &&
-          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].height-toleration) &&
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth) &&
+          (this.posY+this.jump+this.canvas.deltaY*this.mainFigure < this.canvas.arrayObjects[i].posY+this.canvas.arrayObjects[i].imgHeight-toleration) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure+this.imgHeight > this.canvas.arrayObjects[i].posY))
       {
         return 0;
@@ -417,7 +417,7 @@ export class Figure {
     for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].leftStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
-          (this.posX+2 == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY-2))
+          (this.posX+2 == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth-deltaStairY-2))
       {
         return 1;
       }
@@ -435,7 +435,7 @@ export class Figure {
       for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
       if ((this.canvas.arrayObjects[i].leftStair) &&
           (this.posY+this.jump+this.canvas.deltaY*this.mainFigure == this.canvas.arrayObjects[i].posY+deltaStairY) &&
-          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].width-deltaStairY))
+          (this.posX == this.canvas.arrayObjects[i].posX+this.canvas.arrayObjects[i].imgWidth-deltaStairY))
       {
         return 1;
       }

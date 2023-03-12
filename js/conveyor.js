@@ -6,14 +6,14 @@ export class Conveyor extends Object {
   leftConveyor = 0;
   rightConveyor = 0;
 
-  constructor(canvas, posX, posY, width, operation) {
-    super(canvas, posX, posY, width, 8, 'conveyor');
+  constructor(canvas, posX, posY, imgWidth, operation) {
+    super(canvas, posX, posY, imgWidth, 8, 'conveyor');
 
     switch (operation) {
        case 'right': this.rightConveyor = 1; break;
        case 'left': this.leftConveyor = 1; break;
     }
-    var length = width;
+    var length = imgWidth;
     var counter = 0;
     while (length > 0) {
       var newObject = document.createElement('img');
