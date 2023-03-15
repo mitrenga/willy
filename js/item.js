@@ -3,21 +3,21 @@ const { Object } = await import('./object.js?ver='+window.srcVersion);
 export class Item extends Object {
 
   imgElementObj = null;
-  action = null;
+  options = null;
 
-  constructor(canvas, posX, posY, imgWidth, imgHeight, image, action = null) {
-    super(canvas, posX, posY, imgWidth, imgHeight, 'item');
+  constructor(canvas, posX, posY, imgWidth, imgHeight, image, options = null, targetId = '') {
+    super(canvas, posX, posY, imgWidth, imgHeight, 'item', targetId);
 
     this.cssClass = image;
     this.imgElementObj = document.createElement('img');
-    this.imgElementObj.id =  'itemImg'+posX+posY;
+    this.imgElementObj.id = 'itemImg'+posX+posY;
     this.imgElementObj.className = 'itemImg';
     this.imgElementObj.src = 'images/'+image+'.png';
     this.elementObj.appendChild(this.imgElementObj);
 
     this.item = 1;
     this.catch = 1;
-    this.action = action;
+    this.options = options;
 } // constructor
 
 
@@ -54,54 +54,64 @@ export class Item extends Object {
   capture() {
     this.catch = 0;
     this.imgElementObj.style.visibility = 'hidden';
-    if (this.action != null) {
-      if (this.action['targetId'] == '@willy') {
-        if (this.action['figureType'] != null) {
-          this.canvas.willy.figureType = this.action['figureType'];
-          switch (this.action['figureType']) {
-            case 0: { // Willy
-              this.canvas.willy.elementObj.src = 'images/willy.png';
-              this.canvas.willy.imgWidth = 12;
-                    break;
-            }
-            case 1: { // Jetpac
-              this.canvas.willy.elementObj.src = 'images/willy-jetpac.png';
-              this.canvas.willy.imgWidth = 12;
-              break;
-            }
-            case 2: { // Willy in car
-              this.canvas.willy.elementObj.src = 'images/willy-car.png';
-              this.canvas.willy.imgWidth = 32;
-              break;
-            }
-            case 3: { // Willy in plane
-              this.canvas.willy.elementObj.src = 'images/willy-plane.png';
-              this.canvas.willy.imgWidth = 32;
-              break;
-            }
-          } // switch
-          if (this.action['enableItem'] != null) {
-            for (let i = 0; i < this.canvas.arrayItems.length; i++) {
-              if (this.canvas.arrayItems[i].cssClass == this.action['enableItem']) {
-                this.canvas.arrayItems[i].catch = 1;
-                this.canvas.arrayItems[i].imgElementObj.style.visibility = 'visible';
-              }
-            }
-          }
-          this.canvas.willy.render();
+    if (this.options != null) {
+      if (Array.isArray(this.options)) {
+        for (let i = 0; i < this.options.length; i++) {
+          this.setAction (this.options[i]);
         }
       } else {
-        for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
-          if (this.canvas.arrayObjects[i].targetId == this.action['targetId']) {
-            if (this.action['movePosY'] != null)
-              this.canvas.arrayObjects[i].movePosY = this.action['movePosY'];
-            if (this.action['moveHeight'] != null)
-              this.canvas.arrayObjects[i].moveHeight = this.action['moveHeight'];
-            break;
-          }
-        }    
+        this.setAction (this.options);
       }
     }
   } // capture
+
+
+  setAction(options) {
+    if (options['targetId'] == '@willy') {
+      if (options['figureType'] != null) {
+        this.canvas.willy.figureType = options['figureType'];
+        switch (options['figureType']) {
+          case 0: { // Willy
+            this.canvas.willy.elementObj.src = 'images/willy.png';
+            this.canvas.willy.imgWidth = 12;
+                  break;
+          }
+          case 1: { // Jetpac
+            this.canvas.willy.elementObj.src = 'images/willy-jetpac.png';
+            this.canvas.willy.imgWidth = 12;
+            break;
+          }
+          case 2: { // Willy in car
+            this.canvas.willy.elementObj.src = 'images/willy-car.png';
+            this.canvas.willy.imgWidth = 32;
+            break;
+          }
+          case 3: { // Willy in plane
+            this.canvas.willy.elementObj.src = 'images/willy-plane.png';
+            this.canvas.willy.imgWidth = 32;
+            break;
+          }
+        } // switch
+        this.canvas.willy.render();
+      }
+    } else {
+      for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
+        if (this.canvas.arrayObjects[i].targetId == options['targetId']) {
+          if (options['changePosX'] != null)
+            this.canvas.arrayObjects[i].changePosX = options['changePosX'];
+          if (options['changePosY'] != null)
+            this.canvas.arrayObjects[i].changePosY = options['changePosY'];
+          if (options['changeWidth'] != null)
+            this.canvas.arrayObjects[i].changeWidth = options['changeWidth'];
+          if (options['changeHeight'] != null)
+            this.canvas.arrayObjects[i].changeHeight = options['changeHeight'];
+          if (options['enable'] != null) {
+            this.canvas.arrayObjects[i].catch = 1;
+            this.canvas.arrayObjects[i].imgElementObj.style.visibility = 'visible';
+          }
+        }
+      }    
+    }
+  } // setAction
 
 } // class Item

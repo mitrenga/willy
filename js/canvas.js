@@ -46,7 +46,7 @@ export class Canvas {
     // first floor
     this.addObject(new Floor(this, 0*8, 0*8, 40*8, 'concrete'));
     this.addObject(new Wall(this, 0*8, 1*8, 1*8, 11*8, 'wall'));
-    this.addObject(new Item(this, -1*8, 11*8, 8, 8, 'key', {targetId: 'door#03', movePosY: 2*8, moveHeight: -2*8}));
+    this.addObject(new Item(this, -1*8, 11*8, 8, 8, 'key', {targetId: 'door#03', changePosY: 2*8, changeHeight: -2*8}));
     this.addObject(new StairRight(this, 10*8, 1*8));
     this.addObject(new StairRight(this, 11*8, 2*8));
     this.addObject(new StairRight(this, 12*8, 3*8));
@@ -63,7 +63,7 @@ export class Canvas {
 
     this.addObject(new Wall(this, 39*8, 4*8, 1*8, 8*8, 'wall')); 
     this.addObject(new Wall(this, 39*8, 1*8, 1*8, 3*8, 'grille', 'door#02'));
-    this.addObject(new Item(this, 38*8, 4*8, 8, 8, 'key', {targetId: 'door#02', movePosY: 2*8, moveHeight: -2*8}));
+    this.addObject(new Item(this, 38*8, 4*8, 8, 8, 'key', {targetId: 'door#02', changePosY: 2*8, changeHeight: -2*8}, 'key#02'));
 
     // stair
     for (let i = 28; i < 34; i++) {
@@ -72,12 +72,12 @@ export class Canvas {
     }
 
     // second floor
-    this.addObject(new Wall(this, -4*8, 12*8, 32*8, 1*8, 'ceiling'));
+    this.addObject(new Wall(this, -5*8, 12*8, 33*8, 1*8, 'ceiling'));
     this.addObject(new Wall(this, -4*8, 13*8, 1*8, 2*8, 'handrail'));
     this.addObject(new Wall(this, 0*8, 16*8, 1*8, 2*8, 'wall'));
     this.addObject(new Wall(this, -1*8, 16*8, 1*8, 1*8, 'wall'));
 
-    this.addObject(new Wall(this, 33*8, 12*8, 11*8, 1*8, 'ceiling'));
+    this.addObject(new Wall(this, 33*8, 12*8, 12*8, 1*8, 'ceiling'));
     this.addObject(new Wall(this, 43*8, 13*8, 1*8, 2*8, 'handrail'));
     this.addObject(new Wall(this, 39*8, 13*8, 1*8, 5*8, 'wall'));
     this.addObject(new Wall(this, 40*8, 16*8, 1*8, 1*8, 'wall'));
@@ -87,7 +87,7 @@ export class Canvas {
     this.addObject(new Floor(this, 34*8, 14*8, 3*8, 'floor'));
     this.addObject(new Floor(this, 30*8, 16*8, 3*8, 'floor'));
     this.addObject(new Wall(this, 20*8, 20*8, 1*8, 11*8, 'wall'));
-    this.addObject(new Item(this, 20*8, 31*8, 8, 8, 'key', {targetId: 'door#01', movePosY: 2*8}));
+    this.addObject(new Item(this, 20*8, 31*8, 8, 8, 'key', {targetId: 'door#01', changePosY: 2*8}));
     this.addObject(new Conveyor(this, 21*8, 19*8, 5*8, 'right'));
     this.addObject(new Conveyor(this, 21*8, 23*8, 3*8, 'right'));
     this.addObject(new Conveyor(this, 21*8, 27*8, 1*8, 'right'));
@@ -120,22 +120,57 @@ export class Canvas {
     this.addObject(treeCrown);
     this.addFigure(new Rocket(this));
     this.addFigure(new Bird(this));
-    this.addObject(new Item(this, -2*8, 1*8, 16, 12, 'jetpac', {targetId: '@willy', figureType: 1, enableItem: 'jetpac-landing-area'}));
-    this.addObject(new Item(this, -3*8, 13*8, 16, 12, 'jetpac-landing-area', {targetId: '@willy', figureType: 0, enableItem: 'jetpac', disable: 1}));
+    this.addObject(new Item(this, -2*8, 1*8, 16, 12, 'jetpac-spacesuit', [{targetId: '@willy', figureType: 1}, {targetId: 'jetpac-landing-area#01', enable: 1}], 'jetpac-spacesuit#01'));
+    this.addObject(new Item(this, -3*8, 13*8, 16, 12, 'jetpac-landing-area', [{default: 'hidden'}, {targetId: '@willy', figureType: 0}, {targetId: 'jetpac-spacesuit#01', enable: 1}], 'jetpac-landing-area#01'));
+
 
     // garage - right side
+    for (let i = 44; i < 46; i++) {
+      this.addObject(new StairRight(this, i*8, (i-43)*8));
+      this.addObject(new StairRight(this, (i-2)*8, (i-41)*8));
+      this.addObject(new StairLeft(this, (i-2)*8, (46-i)*8));
+      this.addObject(new StairLeft(this, i*8, (48-i)*8));
+    }
+    this.addObject(new Floor(this, 66*8, 8*8, 4*8, 'floor'));
+
     this.addObject(new Floor(this, 40*8, 0*8, 8*8, 'grass'));
     this.addObject(new Floor(this, 48*8, 0*8, 116*8, 'road'));
     this.addObject(new Wall(this, 48*8, 1*8, 1*8, 3*8, 'grille', 'door#03'));
     this.addObject(new Wall(this, 48*8, 4*8, 1*8, 2*8, 'wall'));
     this.addObject(new Wall(this, 63*8, 1*8, 1*8, 3*8, 'grille',  'door#04'));
     this.addObject(new Wall(this, 63*8, 4*8, 1*8, 2*8, 'wall'));
-    this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key', {targetId: 'door#04', movePosY: 2*8, moveHeight: -2*8}));
+    this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key', [{targetId: 'platform#01', changePosX: -11*8}, {targetId: 'door#02', changePosY: -2*8, changeHeight: 2*8}, {targetId: 'key#02', enable: 1}]));
     this.addObject(new Wall(this, 46*8, 6*8, 20*8, 1*8, 'ceiling'));
-    this.addFigure(new Car(this));
+    //this.addFigure(new Car(this));
+    this.addObject(new Wall(this, 55*8, 1*8, 26, 9, 'car-xyz'));
+    this.addObject(new Floor(this, 55*8, 2*8, 26, 'car-abc', '', 1));
     var labelStore = new Wall(this, 80*8, 1*8, 32, 32, 'labelStore')
     labelStore.backgroundSize = 32;
     this.addObject(labelStore);
+
+    // platform #01
+    this.addObject(new StairLeft(this, 58*8, 8*8, 'platform#01'));
+    this.addObject(new StairLeft(this, 59*8, 7*8, 'platform#01'));
+    this.addObject(new StairRight(this, 60*8, 7*8, 'platform#01'));
+    this.addObject(new StairRight(this, 61*8, 8*8, 'platform#01'));
+    this.addObject(new StairLeft(this, 62*8, 8*8, 'platform#01'));
+    this.addObject(new StairLeft(this, 63*8, 7*8, 'platform#01'));
+    this.addObject(new StairRight(this, 64*8, 7*8, 'platform#01'));
+    this.addObject(new StairRight(this, 65*8, 8*8, 'platform#01'));
+    this.addObject(new Floor(this, 57*8, 8*8, 9*8, 'floor', 'platform#01'));
+    this.addObject(new Wall(this, 57*8, 9*8, 1*8, 2*8, 'handrail', 'platform#01'));
+    this.addObject(new Item(this, 57*8, 11*8, 8, 8, 'key', {targetId: 'door#04', changePosY: 2*8, changeHeight: -2*8}));
+
+    // platfom #02
+    for (let i = 66; i < 70; i++) {
+      this.addObject(new StairRight(this, i*8, (i-65)*8));
+      this.addObject(new StairRight(this, i*8, (i-61)*8));
+      this.addObject(new StairLeft(this, i*8, (70-i)*8));
+      this.addObject(new StairLeft(this, i*8, (74-i)*8));
+    }
+    this.addObject(new Floor(this, 66*8, 8*8, 4*8, 'floor'));
+    this.addObject(new Wall(this, 69*8, 9*8, 1*8, 2*8, 'handrail'));
+
 
     this.scale = this.willy.elementObj.clientHeight / 16;
   } // sceneInit
@@ -148,13 +183,26 @@ export class Canvas {
 
   addObject(object) {
     this.arrayObjects.push(object);
-    if (object.catch) {
-      if ((object.action != null) && (object.action['disable'] == 1)) {
-        object.animate();
-        object.catch = 0;
-        object.imgElementObj.style.visibility = 'hidden';
-      }
+    if (object.catch == 1) {
       this.arrayItems.push(object);
+    }
+
+    if (object.options != null) {
+      if (Array.isArray (object.options)) {
+        for (let i = 0; i < object.options.length; i++) {
+          if ((object.options[i]['default'] != null) && (object.options[i]['default'] == 'hidden')) {
+            object.animate();
+            object.catch = 0;
+            object.imgElementObj.style.visibility = 'hidden';
+          }
+        }
+      } else {
+        if ((object.options['default'] != null) && (object.options['default'] == 'hidden')) {
+          object.animate();
+          object.catch = 0;
+          object.imgElementObj.style.visibility = 'hidden';
+        }
+      }
     }
   } // addObject
 

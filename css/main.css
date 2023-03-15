@@ -48,6 +48,8 @@ body {margin: 0; position: fixed; background-color: #666; overflow: hidden; touc
 .treeTrunk {position: absolute; background-image: url("../images/tree-trunk.png"); background-repeat: no-repeat;}
 .labelStore {position: absolute; background-image: url("../images/label-store.png"); background-repeat: no-repeat;}
 .labelPole {position: absolute; background-image: url("../images/label-pole.png"); background-repeat: no-repeat;}
+.car-xyz {position: absolute; background-image: url("../images/car.png"); background-repeat: no-repeat; background-size: cover; background-size: cover !important; background-position-y: bottom !important;}
+.car-abc {position: absolute; background-image: url("../images/car.png"); background-repeat: no-repeat; background-size: cover; background-size: cover !important; background-position-y: top !important;}
 .conveyor {position: absolute; object-fit: cover;}
 .conveyorImg {position: absolute; object-fit: cover;}
 .item {position: absolute; object-fit: cover;}

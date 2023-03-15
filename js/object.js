@@ -10,10 +10,10 @@ export class Object {
   imgWidth = 0;
   imgHeight = 0;
 
-  movePosX = 0;
-  movePosY = 0;
-  moveWidth = 0;
-  moveHeight = 0;
+  changePosX = 0;
+  changePosY = 0;
+  changeWidth = 0;
+  changeHeight = 0;
 
   backgroundSize = 8;
   
@@ -22,8 +22,9 @@ export class Object {
   rightStair = 0;
   item = 0;
   catch = 0;
+  decoration = 0;
 
-  constructor(canvas, posX, posY, imgWidth, imgHeight, cssClass, targetId = '') {
+  constructor(canvas, posX, posY, imgWidth, imgHeight, cssClass, targetId = '', decoration = 0) {
     this.canvas = canvas;
     this.posX = posX;
     this.posY = posY;
@@ -31,6 +32,7 @@ export class Object {
     this.imgHeight = imgHeight;
     this.elementId = cssClass+posX+posY; 
     this.targetId = targetId;
+    this.decoration = decoration;
     this.elementObj = document.createElement('div');
     this.elementObj.id = this.elementId;
     this.elementObj.className = cssClass;
@@ -49,12 +51,39 @@ export class Object {
 
 
   animate() {
-    if (this.movePosY > 1) {
-      this.movePosY -= 2;
+    if (this.changePosX > 1) {
+      this.changePosX -= 2;
+      this.posX += 2;
+    }
+    if (this.changePosX < -1) {
+      this.changePosX += 2;
+      this.posX -= 2;
+    }
+    
+    if (this.changePosY > 1) {
+      this.changePosY -= 2;
       this.posY += 2;
     }
-    if (this.moveHeight < -1) {
-      this.moveHeight += 2;
+    if (this.changePosY < -1) {
+      this.changePosY += 2;
+      this.posY -= 2;
+    }
+
+    if (this.imgWidth > 1) {
+      this.imgWidth -= 2;
+      this.imgWidth += 2;
+    }
+    if (this.imgWidth < -1) {
+      this.imgWidth += 2;
+      this.imgWidth -= 2;
+    }
+
+    if (this.changeHeight > 1) {
+      this.changeHeight -= 2;
+      this.imgHeight += 2;
+    }
+    if (this.changeHeight < -1) {
+      this.changeHeight += 2;
       this.imgHeight -= 2;
     }
   } // animate
