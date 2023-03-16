@@ -1,7 +1,6 @@
 export class Figure {
 
   canvas = null;
-  elementId = null;
   elementObj = null;
   imageFileName = '';
   imgWidth = 12;
@@ -21,12 +20,10 @@ export class Figure {
   jumpMap = [0, 4, 4, 3, 3, 2, 2, 1, 1, 0, -1, -1, -2, -2, -3, -3, -4, -4];
 
 
-  constructor(canvas, elementId, cssClass, imageFileName) {
+  constructor(canvas, cssClass, imageFileName) {
     this.canvas = canvas;
-    this.elementId = elementId;
     this.imageFileName = imageFileName;
     this.elementObj = document.createElement('img');
-    this.elementObj.id = this.elementId;
     this.elementObj.className = cssClass;
     this.elementObj.src = this.imageFileName;
     canvas.elementObj.appendChild(this.elementObj);

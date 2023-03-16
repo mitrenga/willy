@@ -3,7 +3,7 @@ const { Figure } = await import('./figure.js?ver='+window.srcVersion);
 export class Kate extends Figure {
   
   constructor(canvas) {
-    super(canvas, 'kate', 'kate', 'images/kate.png');
+    super(canvas, 'kate', 'images/kate.png');
     this.posX = 16;
     this.posY = 8;
   } // constructor

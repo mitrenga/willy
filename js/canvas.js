@@ -159,7 +159,7 @@ export class Canvas {
     this.addObject(new StairRight(this, 65*8, 8*8, 'platform#01'));
     this.addObject(new Floor(this, 57*8, 8*8, 9*8, 'floor', 'platform#01'));
     this.addObject(new Wall(this, 57*8, 9*8, 1*8, 2*8, 'handrail', 'platform#01'));
-    this.addObject(new Item(this, 57*8, 11*8, 8, 8, 'key', {targetId: 'door#04', changePosY: 2*8, changeHeight: -2*8}));
+    this.addObject(new Item(this, 57*8, 11*8, 8, 8, 'key', {targetId: 'door#04', changePosY: 2*8, changeHeight: -2*8}, 'platform#01'));
 
     // platfom #02
     for (let i = 66; i < 70; i++) {

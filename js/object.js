@@ -1,7 +1,6 @@
 export class Object {
 
   canvas = null;
-  elementId = null;
   elementObj = null;
   cssClass = '';
   targetId = '';
@@ -30,11 +29,9 @@ export class Object {
     this.posY = posY;
     this.imgWidth = imgWidth;
     this.imgHeight = imgHeight;
-    this.elementId = cssClass+posX+posY; 
     this.targetId = targetId;
     this.decoration = decoration;
     this.elementObj = document.createElement('div');
-    this.elementObj.id = this.elementId;
     this.elementObj.className = cssClass;
     this.cssClass = cssClass;
     canvas.elementObj.appendChild(this.elementObj);

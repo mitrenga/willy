@@ -3,7 +3,7 @@ const { Figure } = await import('./figure.js?ver='+window.srcVersion);
 export class Bird extends Figure {
   
   constructor(canvas) {
-    super(canvas, 'bird', 'bird', 'images/bird.png');
+    super(canvas, 'bird', 'images/bird.png');
     this.posX = -20*8;
     this.posY = 10*8;
     this.imgHeight = 16;
