@@ -139,7 +139,7 @@ export class Canvas {
     this.addObject(new Wall(this, 48*8, 4*8, 1*8, 2*8, 'wall'));
     this.addObject(new Wall(this, 63*8, 1*8, 1*8, 3*8, 'grille',  'door#04'));
     this.addObject(new Wall(this, 63*8, 4*8, 1*8, 2*8, 'wall'));
-    this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key', [{targetId: 'platform#01', changePosX: -11*8}, {targetId: 'door#02', changePosY: -2*8, changeHeight: 2*8}, {targetId: 'key#02', enable: 1}]));
+    this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key', [{targetId: 'platform#01', changePosX: -11*8}, {targetId: 'door#02', setPosY: 1*8, setHeight: 3*8}, {targetId: 'key#02', enable: 1}]));
     this.addObject(new Wall(this, 46*8, 6*8, 20*8, 1*8, 'ceiling'));
     //this.addFigure(new Car(this));
     this.addObject(new Wall(this, 55*8, 1*8, 26, 9, 'car-xyz'));
