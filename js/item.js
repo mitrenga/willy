@@ -74,11 +74,17 @@ export class Item extends Object {
           case 0: { // Willy
             this.canvas.willy.elementObj.src = 'images/willy.png';
             this.canvas.willy.imgWidth = 12;
-                  break;
+            break;
           }
           case 1: { // Jetpac
             this.canvas.willy.elementObj.src = 'images/willy-jetpac.png';
             this.canvas.willy.imgWidth = 12;
+            if (this.canvas.willy.jump) {
+              this.canvas.deltaY = this.canvas.willy.jump;
+              this.canvas.willy.jump = 0;
+              this.canvas.willy.jumpCounter = 0;
+              this.canvas.willy.jumpDirection = 0;
+            }
             break;
           }
           case 2: { // Willy in car
