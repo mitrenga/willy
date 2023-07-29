@@ -2,10 +2,10 @@ const { Figure } = await import('./figure.js?ver='+window.srcVersion);
 
 export class Rocket extends Figure {
   
-  constructor(canvas) {
+  constructor(canvas, posX, posY) {
     super(canvas, 'rocket', 'images/rocket.png');
-    this.posX = -10*8;
-    this.posY = 1*8;
+    this.posX = posX;
+    this.posY = posY;
     this.imgWidth = 18;
     this.imgHeight = 50;
   } // constructor

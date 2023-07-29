@@ -6,7 +6,11 @@
     $tmpURL = substr($tmpURL, 0, -1);
   $appURL = substr($tmpURL, 0, -strlen('index.php'));
 
-  if ($_SERVER['QUERY_STRING'] === 'manifest.webmanifest') {
+  if ($_SERVER['QUERY_STRING'] === '001.level') {
+    require_once 'dataLevel.php';
+    $page = new dataLevel();
+  } // xxx.level
+  elseif ($_SERVER['QUERY_STRING'] === 'manifest.webmanifest') {
     require_once 'manifestPage.php';
     $page = new manifestPage();
   } // manifestPage

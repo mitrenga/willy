@@ -3,7 +3,7 @@ export class Object {
   canvas = null;
   elementObj = null;
   cssClass = '';
-  targetId = '';
+  myId = '';
   posX = 0;
   posY = 0;
   imgWidth = 0;
@@ -23,13 +23,13 @@ export class Object {
   catch = 0;
   decoration = 0;
 
-  constructor(canvas, posX, posY, imgWidth, imgHeight, cssClass, targetId = '', decoration = 0) {
+  constructor(canvas, posX, posY, imgWidth, imgHeight, cssClass, myId = '', decoration = 0) {
     this.canvas = canvas;
     this.posX = posX;
     this.posY = posY;
     this.imgWidth = imgWidth;
     this.imgHeight = imgHeight;
-    this.targetId = targetId;
+    this.myId = myId;
     this.decoration = decoration;
     this.elementObj = document.createElement('div');
     this.elementObj.className = cssClass;

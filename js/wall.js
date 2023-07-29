@@ -2,8 +2,8 @@ const { Object } = await import('./object.js?ver='+window.srcVersion);
 
 export class Wall extends Object {
 
-  constructor(canvas, posX, posY, imgWidth, imgHeight, cssClass, targetId = '') {
-    super(canvas, posX, posY, imgWidth, imgHeight, cssClass, targetId);
+  constructor(canvas, posX, posY, imgWidth, imgHeight, cssClass, myId = '') {
+    super(canvas, posX, posY, imgWidth, imgHeight, cssClass, myId);
     this.impenetrable = 1;
   } // constructor
   

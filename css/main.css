@@ -34,6 +34,10 @@ body {margin: 0; position: fixed; background-color: #666; overflow: hidden; touc
 .grille {position: absolute; background-image: url("../images/grille.png"); background-repeat: repeat;}
 .stairRight {position: absolute; background-image: url("../images/stair-right.png"); background-repeat: repeat;}
 .stairLeft {position: absolute; background-image: url("../images/stair-left.png"); background-repeat: repeat;}
+.stair2Right {position: absolute; background-image: url("../images/stair2-right.png"); background-repeat: repeat;}
+.stair2Left {position: absolute; background-image: url("../images/stair2-left.png"); background-repeat: repeat;}
+.stair3Right {position: absolute; background-image: url("../images/stair3-right.png"); background-repeat: repeat;}
+.stair3Left {position: absolute; background-image: url("../images/stair3-left.png"); background-repeat: repeat;}
 .grass {position: absolute; background-image: url("../images/grass.png"); background-repeat: repeat;}
 .road {position: absolute; background-image: url("../images/road.png"); background-repeat: repeat;}
 .clay {position: absolute; background-image: url("../images/clay.png"); background-repeat: repeat;}

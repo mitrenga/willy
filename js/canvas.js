@@ -8,6 +8,10 @@ const { Floor } = await import('./floor.js?ver='+window.srcVersion);
 const { Wall } = await import('./wall.js?ver='+window.srcVersion);
 const { StairRight } = await import('./stair-right.js?ver='+window.srcVersion);
 const { StairLeft } = await import('./stair-left.js?ver='+window.srcVersion);
+const { Stair2Right } = await import('./stair2-right.js?ver='+window.srcVersion);
+const { Stair2Left } = await import('./stair2-left.js?ver='+window.srcVersion);
+const { Stair3Right } = await import('./stair3-right.js?ver='+window.srcVersion);
+const { Stair3Left } = await import('./stair3-left.js?ver='+window.srcVersion);
 const { Conveyor } = await import('./conveyor.js?ver='+window.srcVersion);
 const { RoofLeft } = await import('./roof-left.js?ver='+window.srcVersion);
 const { RoofRight } = await import('./roof-right.js?ver='+window.srcVersion);
@@ -40,139 +44,139 @@ export class Canvas {
 
 
   sceneInit() {
-    this.addFigure(new Kate(this));
-    this.addFigure(this.willy = new Willy(this));
+    const http = new XMLHttpRequest();
+    http.canvasObj = this;
+    http.open('GET', '001.level');
+    http.send();
+    
+    http.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        const obj = JSON.parse(http.responseText);
+        Object.keys(obj).forEach(key => {
+          const objKey = obj[key];
+          let posX = objKey['posX']*8;
+          if (objKey.hasOwnProperty('softlyX')) {
+            posX += objKey['softlyX'];
+          }
+          let posY = objKey['posY']*8;
+          if (objKey.hasOwnProperty('softlyY')) {
+            posY += objKey['softlyY'];
+          }
+          let imgWidth = 0;
+          if (objKey.hasOwnProperty('imgWidth')) {
+            imgWidth = objKey['imgWidth']*8;
+          }
+          if (objKey.hasOwnProperty('softlyWidth')) {
+            imgWidth += objKey['softlyWidth'];
+          }
+          let imgHeight = 0;
+          if (objKey.hasOwnProperty('imgHeight')) {
+            imgHeight = objKey['imgHeight']*8;
+          }
+          if (objKey.hasOwnProperty('softlyHeight')) {
+            imgHeight += objKey['softlyHeight'];
+          }
+          let cssClass = '';
+          if (objKey.hasOwnProperty('cssClass')) {
+            cssClass = objKey['cssClass'];
+          }
+          let loopFrom = 0;
+          let loopTo = 1;
+          if (objKey.hasOwnProperty('loop')) {
+            loopFrom = objKey['loop']['from'];
+            loopTo = (objKey['loop']['to'])+1;
+          }
+          let actions = null;
+          if (objKey.hasOwnProperty('actions')) {
+            actions = Array();
+            let tmp = objKey['actions'];
+            if (Array.isArray(tmp)) {
+              for (let i = 0; i < tmp.length; i++) {
+                if (tmp[i].hasOwnProperty('changePosX'))
+                  tmp[i]['changePosX'] *= 8;
+                if (tmp[i].hasOwnProperty('changePosY'))
+                  tmp[i]['changePosY'] *= 8;
+                if (tmp[i].hasOwnProperty('changeHeight'))
+                  tmp[i]['changeHeight'] *= 8;
+                if (tmp[i].hasOwnProperty('changeWidth'))
+                  tmp[i]['changeWidth'] *= 8;
+                if (tmp[i].hasOwnProperty('setPosX'))
+                  tmp[i]['setPosX'] *= 8;
+                if (tmp[i].hasOwnProperty('setPosY'))
+                  tmp[i]['setPosY'] *= 8;
+                if (tmp[i].hasOwnProperty('setHeight'))
+                  tmp[i]['setHeight'] *= 8;
+                if (tmp[i].hasOwnProperty('setWidth'))
+                  tmp[i]['setWidth'] *= 8;
+                actions.push (tmp[i]);
+              }
+            } else {
+              if (tmp.hasOwnProperty('changePosX'))
+                tmp['changePosX'] *= 8;
+              if (tmp.hasOwnProperty('changePosY'))
+                tmp['changePosY'] *= 8;
+              if (tmp.hasOwnProperty('changeHeight'))
+                tmp['changeHeight'] *= 8;
+              if (tmp.hasOwnProperty('changeWidth'))
+                tmp['changeWidth'] *= 8;
+              if (tmp.hasOwnProperty('setPosX'))
+                tmp['setPosX'] *= 8;
+              if (tmp.hasOwnProperty('setPosY'))
+                tmp['setPosY'] *= 8;
+              if (tmp.hasOwnProperty('setHeight'))
+                tmp['setHeight'] *= 8;
+              if (tmp.hasOwnProperty('setWidth'))
+                tmp['setWidth'] *= 8;
+              actions.push (tmp);
+            }
+          }
+          let myId = '';
+          if (objKey.hasOwnProperty('myId')) {
+            myId = objKey['myId'];
+          }
+          let decoration = 0;
+          if (objKey.hasOwnProperty('decoration')) {
+            decoration = objKey['decoration'];
+          }
+          let noRepeat = 0;
+          if (objKey.hasOwnProperty('noRepeat')) {
+            noRepeat = objKey['noRepeat'];
+          }
 
-    // first floor
-    this.addObject(new Floor(this, 0*8, 0*8, 40*8, 'concrete'));
-    this.addObject(new Wall(this, 0*8, 1*8, 1*8, 11*8, 'wall'));
-    this.addObject(new Item(this, -1*8, 11*8, 8, 8, 'key', {targetId: 'door#03', changePosY: 2*8, changeHeight: -2*8}));
-    this.addObject(new StairRight(this, 10*8, 1*8));
-    this.addObject(new StairRight(this, 11*8, 2*8));
-    this.addObject(new StairRight(this, 12*8, 3*8));
-    this.addObject(new Wall(this, 13*8, 1*8, 1*8, 3*8, 'wall'));
-    this.addObject(new Floor(this, 7*8, 4*8, 3*8, 'floor'));
-    this.addObject(new Wall(this, 13*8, 4*8, 1*8, 3*8, 'grille',  'door#01'));
-    this.addObject(new Conveyor(this, 4*8, 6*8, 9*8, 'right'));
-
-    this.addObject(new Floor(this, 14*8, 3*8, 8*8, 'floor'));
-    this.addFigure(new Alien(this, '001', 1, 14*8, 4*8, 12, 14*8, 22*8));
-
-    this.addObject(new Floor(this, 34*8, 6*8, 5*8, 'floor'));
-    this.addFigure(new Alien(this, '002', 2, (34-17)*8, (7-3)*8, 14, (34-34)*8, 39*8));
-
-    this.addObject(new Wall(this, 39*8, 4*8, 1*8, 8*8, 'wall')); 
-    this.addObject(new Wall(this, 39*8, 1*8, 1*8, 3*8, 'grille', 'door#02'));
-    this.addObject(new Item(this, 38*8, 4*8, 8, 8, 'key', {targetId: 'door#02', changePosY: 2*8, changeHeight: -2*8}, 'key#02'));
-
-    // stair
-    for (let i = 28; i < 34; i++) {
-      this.addObject(new StairRight(this, i*8, (i-27)*8));
-      this.addObject(new StairLeft(this, i*8, (40-i)*8));
-    }
-
-    // second floor
-    this.addObject(new Wall(this, -5*8, 12*8, 33*8, 1*8, 'ceiling'));
-    this.addObject(new Wall(this, -4*8, 13*8, 1*8, 2*8, 'handrail'));
-    this.addObject(new Wall(this, 0*8, 16*8, 1*8, 2*8, 'wall'));
-    this.addObject(new Wall(this, -1*8, 16*8, 1*8, 1*8, 'wall'));
-
-    this.addObject(new Wall(this, 33*8, 12*8, 12*8, 1*8, 'ceiling'));
-    this.addObject(new Wall(this, 43*8, 13*8, 1*8, 2*8, 'handrail'));
-    this.addObject(new Wall(this, 39*8, 13*8, 1*8, 5*8, 'wall'));
-    this.addObject(new Wall(this, 40*8, 16*8, 1*8, 1*8, 'wall'));
-
-    //under roof
-    this.addObject(new Conveyor(this, 13*8, 17*8, 14*8, 'left'));
-    this.addObject(new Floor(this, 34*8, 14*8, 3*8, 'floor'));
-    this.addObject(new Floor(this, 30*8, 16*8, 3*8, 'floor'));
-    this.addObject(new Wall(this, 20*8, 20*8, 1*8, 11*8, 'wall'));
-    this.addObject(new Item(this, 20*8, 31*8, 8, 8, 'key', {targetId: 'door#01', changePosY: 2*8}));
-    this.addObject(new Conveyor(this, 21*8, 19*8, 5*8, 'right'));
-    this.addObject(new Conveyor(this, 21*8, 23*8, 3*8, 'right'));
-    this.addObject(new Conveyor(this, 21*8, 27*8, 1*8, 'right'));
-    this.addObject(new Floor(this, 15*8, 19*8, 6*8, 'floor'));
-    this.addObject(new Wall(this, 19*8, 21*8, 1*8, 1*8, 'wall'));
-    this.addObject(new Floor(this, 16*8, 23*8, 4*8, 'floor'));
-    this.addObject(new Wall(this, 19*8, 25*8, 1*8, 1*8, 'wall'));
-    this.addObject(new Floor(this, 17*8, 27*8, 3*8, 'floor'));
-    this.addObject(new Wall(this, 19*8, 29*8, 1*8, 1*8, 'wall'));
-
-    // roof
-    for (let i = -1; i < 19; i++) {
-      this.addObject(new RoofLeft(this, i*8, (18+i)*8));
-      this.addObject(new RoofRight(this, (39-i)*8, (18+i)*8));
-      if (i < 19) {
-        this.addObject(new Wall(this, i*8+8, (18+i)*8, 1*8, 1*8, 'roofLeftExt'));
-        this.addObject(new Wall(this, (39-i)*8-8, (18+i)*8, 1*8, 1*8, 'roofRightExt'));
+          for (let i = loopFrom; i < loopTo; i++) 
+          {
+            if (i > loopFrom) {
+              posX += (objKey['loop']['posX'])*8;
+              posY += (objKey['loop']['posY'])*8
+            }
+            let newObject = null;
+            switch (objKey['class']) {
+              case 'Willy':       this.canvasObj.addFigure(this.canvasObj.willy = new Willy(this.canvasObj, posX, posY)); break;
+              case 'Kate':        this.canvasObj.addFigure(new Kate(this.canvasObj, posX, posY)); break;
+              case 'Floor':       this.canvasObj.addObject(new Floor(this.canvasObj, posX, posY, imgWidth, cssClass, myId, decoration)); break;
+              case 'Wall':        this.canvasObj.addObject(newObject = new Wall(this.canvasObj, posX, posY, imgWidth, imgHeight, cssClass, myId)); break;
+              case 'Item':        this.canvasObj.addObject(new Item(this.canvasObj, posX, posY, imgWidth, imgHeight, cssClass, actions, myId)); break;
+              case 'StairRight':  this.canvasObj.addObject(new StairRight(this.canvasObj, posX, posY, myId)); break;
+              case 'StairLeft':   this.canvasObj.addObject(new StairLeft(this.canvasObj, posX, posY, myId)); break;
+              case 'Stair2Right': this.canvasObj.addObject(new Stair2Right(this.canvasObj, posX, posY, myId)); break;
+              case 'Stair2Left':  this.canvasObj.addObject(new Stair2Left(this.canvasObj, posX, posY, myId)); break;
+              case 'Stair3Right': this.canvasObj.addObject(new Stair3Right(this.canvasObj, posX, posY, myId)); break;
+              case 'Stair3Left':  this.canvasObj.addObject(new Stair3Left(this.canvasObj, posX, posY, myId)); break;
+              case 'Conveyor':    this.canvasObj.addObject(new Conveyor(this.canvasObj, posX, posY, imgWidth, objKey['operation'])); break;
+              case 'Alien':       this.canvasObj.addFigure(new Alien(this.canvasObj, posX, posY, imgWidth, objKey['version'], (objKey['minX'])*8, (objKey['maxX'])*8)); break;
+              case 'RoofLeft':    this.canvasObj.addObject(new RoofLeft(this.canvasObj, posX, posY)); break;
+              case 'RoofRight':   this.canvasObj.addObject(new RoofRight(this.canvasObj, posX, posY)); break;
+              case 'Rocket':      this.canvasObj.addFigure(new Rocket(this.canvasObj, posX, posY)); break;
+              case 'Bird':        this.canvasObj.addFigure(new Bird(this.canvasObj, posX, posY)); break;
+            } // switch
+            if (newObject && noRepeat)
+              newObject.backgroundSize = imgWidth;
+          } // for
+        });
+        this.canvasObj.scale = this.canvasObj.willy.elementObj.clientHeight / 16;
+        this.canvasObj.sceneRender();
       }
     }
-    this.addObject(new Wall(this, 19*8, 36*8, 1*8, 1*8, 'roofLeft'));
-    this.addObject(new Wall(this, 20*8, 36*8, 1*8, 1*8, 'roofRight'));
-
-    // garden - left side
-    this.addObject(new Floor(this, -100*8, 0*8, 100*8, 'grass'));
-    var treeTrunk = new Wall(this, -25*8, 1*8, 16, 18, 'treeTrunk')
-    treeTrunk.backgroundSize = 16;
-    this.addObject(treeTrunk);
-    var treeCrown = new Wall(this, -25*8, 1*8+18, 26, 18, 'treeCrown')
-    treeCrown.backgroundSize = 26;
-    this.addObject(treeCrown);
-    this.addFigure(new Rocket(this));
-    this.addFigure(new Bird(this));
-    this.addObject(new Item(this, -2*8, 1*8, 16, 12, 'jetpac-spacesuit', [{targetId: '@willy', figureType: 1}, {targetId: 'jetpac-landing-area#01', enable: 1}], 'jetpac-spacesuit#01'));
-    this.addObject(new Item(this, -3*8, 13*8, 16, 12, 'jetpac-landing-area', [{default: 'hidden'}, {targetId: '@willy', figureType: 0}, {targetId: 'jetpac-spacesuit#01', enable: 1}], 'jetpac-landing-area#01'));
-
-
-    // garage - right side
-    for (let i = 44; i < 46; i++) {
-      this.addObject(new StairRight(this, i*8, (i-43)*8));
-      this.addObject(new StairRight(this, (i-2)*8, (i-41)*8));
-      this.addObject(new StairLeft(this, (i-2)*8, (46-i)*8));
-      this.addObject(new StairLeft(this, i*8, (48-i)*8));
-    }
-    this.addObject(new Floor(this, 66*8, 8*8, 4*8, 'floor'));
-
-    this.addObject(new Floor(this, 40*8, 0*8, 8*8, 'grass'));
-    this.addObject(new Floor(this, 48*8, 0*8, 116*8, 'road'));
-    this.addObject(new Wall(this, 48*8, 1*8, 1*8, 3*8, 'grille', 'door#03'));
-    this.addObject(new Wall(this, 48*8, 4*8, 1*8, 2*8, 'wall'));
-    this.addObject(new Wall(this, 63*8, 1*8, 1*8, 3*8, 'grille',  'door#04'));
-    this.addObject(new Wall(this, 63*8, 4*8, 1*8, 2*8, 'wall'));
-    this.addObject(new Item(this, 62*8, 4*8, 8, 8, 'key', [{targetId: 'platform#01', changePosX: -11*8}, {targetId: 'door#02', setPosY: 1*8, setHeight: 3*8}, {targetId: 'key#02', enable: 1}]));
-    this.addObject(new Wall(this, 46*8, 6*8, 20*8, 1*8, 'ceiling'));
-    //this.addFigure(new Car(this));
-    this.addObject(new Wall(this, 55*8, 1*8, 26, 9, 'car-xyz'));
-    this.addObject(new Floor(this, 55*8, 2*8, 26, 'car-abc', '', 1));
-    var labelStore = new Wall(this, 80*8, 1*8, 32, 32, 'labelStore')
-    labelStore.backgroundSize = 32;
-    this.addObject(labelStore);
-
-    // platform #01
-    this.addObject(new StairLeft(this, 58*8, 8*8, 'platform#01'));
-    this.addObject(new StairLeft(this, 59*8, 7*8, 'platform#01'));
-    this.addObject(new StairRight(this, 60*8, 7*8, 'platform#01'));
-    this.addObject(new StairRight(this, 61*8, 8*8, 'platform#01'));
-    this.addObject(new StairLeft(this, 62*8, 8*8, 'platform#01'));
-    this.addObject(new StairLeft(this, 63*8, 7*8, 'platform#01'));
-    this.addObject(new StairRight(this, 64*8, 7*8, 'platform#01'));
-    this.addObject(new StairRight(this, 65*8, 8*8, 'platform#01'));
-    this.addObject(new Floor(this, 57*8, 8*8, 9*8, 'floor', 'platform#01'));
-    this.addObject(new Wall(this, 57*8, 9*8, 1*8, 2*8, 'handrail', 'platform#01'));
-    this.addObject(new Item(this, 57*8, 11*8, 8, 8, 'key', {targetId: 'door#04', changePosY: 2*8, changeHeight: -2*8}, 'platform#01'));
-
-    // platfom #02
-    for (let i = 66; i < 70; i++) {
-      this.addObject(new StairRight(this, i*8, (i-65)*8));
-      this.addObject(new StairRight(this, i*8, (i-61)*8));
-      this.addObject(new StairLeft(this, i*8, (70-i)*8));
-      this.addObject(new StairLeft(this, i*8, (74-i)*8));
-    }
-    this.addObject(new Floor(this, 66*8, 8*8, 4*8, 'floor'));
-    this.addObject(new Wall(this, 69*8, 9*8, 1*8, 2*8, 'handrail'));
-
-
-    this.scale = this.willy.elementObj.clientHeight / 16;
   } // sceneInit
 
 
@@ -187,17 +191,17 @@ export class Canvas {
       this.arrayItems.push(object);
     }
 
-    if (object.options != null) {
-      if (Array.isArray (object.options)) {
-        for (let i = 0; i < object.options.length; i++) {
-          if ((object.options[i]['default'] != null) && (object.options[i]['default'] == 'hidden')) {
+    if (object.actions != null) {
+      if (Array.isArray (object.actions)) {
+        for (let i = 0; i < object.actions.length; i++) {
+          if ((object.actions[i]['default'] != null) && (object.actions[i]['default'] == 'hidden')) {
             object.animate();
             object.catch = 0;
             object.imgElementObj.style.visibility = 'hidden';
           }
         }
       } else {
-        if ((object.options['default'] != null) && (object.options['default'] == 'hidden')) {
+        if ((object.actions['default'] != null) && (object.actions['default'] == 'hidden')) {
           object.animate();
           object.catch = 0;
           object.imgElementObj.style.visibility = 'hidden';
@@ -276,8 +280,8 @@ export class Canvas {
 
 
   resetRoom() {
-    this.willy.posX = 11*8+4;
-    this.willy.posY = 1*8;
+    this.willy.posX = this.willy.defaultX;
+    this.willy.posY = this.willy.defaultY;
     this.willy.step = 0;
     this.willy.direction = 0;
     this.willy.jump = 0;
@@ -285,6 +289,8 @@ export class Canvas {
     this.willy.jumpCounter = 0;
     this.willy.falling = 0;
     this.willy.figureType = 0;
+    this.willy.elementObj.src = 'images/willy.png';
+    this.willy.imgWidth = 12;
     this.deltaY = 0;
     } // resetRoom
 
