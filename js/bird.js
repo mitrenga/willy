@@ -8,6 +8,7 @@ export class Bird extends Figure {
     this.posY = posY;
     this.imgHeight = 16;
     this.imgWidth = 16;
+    this.alien = 1;
   } // constructor
 
   pressKeyLeft() {

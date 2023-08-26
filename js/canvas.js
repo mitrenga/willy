@@ -37,6 +37,8 @@ export class Canvas {
 
   pauseGame = 0;
 
+  actionsResetRoom = new Array();
+
 
   constructor() {
     this.sceneInit();
@@ -51,9 +53,9 @@ export class Canvas {
     
     http.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        const obj = JSON.parse(http.responseText);
-        Object.keys(obj).forEach(key => {
-          const objKey = obj[key];
+        const dataJSON = JSON.parse(http.responseText);
+        Object.keys(dataJSON).forEach(key => {
+          const objKey = dataJSON[key];
           let posX = objKey['posX']*8;
           if (objKey.hasOwnProperty('softlyX')) {
             posX += objKey['softlyX'];
@@ -172,6 +174,10 @@ export class Canvas {
             if (newObject && noRepeat)
               newObject.backgroundSize = imgWidth;
           } // for
+          
+          if (objKey.hasOwnProperty('resetRoom')) {
+            this.canvasObj.actionsResetRoom = actions;
+          } // resetRoom
         });
         this.canvasObj.scale = this.canvasObj.willy.elementObj.clientHeight / 16;
         this.canvasObj.sceneRender();
@@ -288,11 +294,11 @@ export class Canvas {
     this.willy.jumpDirection = 0;
     this.willy.jumpCounter = 0;
     this.willy.falling = 0;
-    this.willy.figureType = 0;
-    this.willy.elementObj.src = 'images/willy.png';
-    this.willy.imgWidth = 12;
     this.deltaY = 0;
-    } // resetRoom
+    for (let i = 0; i < this.actionsResetRoom.length; i++) {
+      this.arrayItems[0].setAction(this.actionsResetRoom[i]);
+    }
+  } // resetRoom
 
   eventKeyDown(key) {
     if (key == 'ArrowLeft') {

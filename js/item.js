@@ -56,17 +56,17 @@ export class Item extends Object {
     this.imgElementObj.style.visibility = 'hidden';
     if (this.actions != null) {
       for (let i = 0; i < this.actions.length; i++) {
-        this.setActions (this.actions[i]);
+        this.setAction(this.actions[i]);
       }
     }
   } // capture
 
 
-  setActions(actions) {
-    if (actions['targetId'] == '@willy') {
-      if (actions['figureType'] != null) {
-        this.canvas.willy.figureType = actions['figureType'];
-        switch (actions['figureType']) {
+  setAction(action) {
+    if (action['targetId'] == '@willy') {
+      if (action['figureType'] != null) {
+        this.canvas.willy.figureType = action['figureType'];
+        switch (action['figureType']) {
           case 0: { // Willy
             this.canvas.willy.elementObj.src = 'images/willy.png';
             this.canvas.willy.imgWidth = 12;
@@ -98,34 +98,34 @@ export class Item extends Object {
       }
     } else {
       for (let i = 0; i < this.canvas.arrayObjects.length; i++) {
-        if (this.canvas.arrayObjects[i].myId == actions['targetId']) {
-          if (actions['changePosX'] != null)
-            this.canvas.arrayObjects[i].changePosX = actions['changePosX'];
-          if (actions['setPosX'] != null)
-            this.canvas.arrayObjects[i].changePosX = actions['setPosX']-this.canvas.arrayObjects[i].posX;
-          if (actions['changePosY'] != null)
-            this.canvas.arrayObjects[i].changePosY = actions['changePosY'];
-          if (actions['setPosY'] != null)
-            this.canvas.arrayObjects[i].changePosY = actions['setPosY']-this.canvas.arrayObjects[i].posY;
-          if (actions['changeWidth'] != null)
-            this.canvas.arrayObjects[i].changeWidth = actions['changeWidth'];
-          if (actions['setWidth'] != null)
-            this.canvas.arrayObjects[i].changeWidth = actions['setWidth']-this.canvas.arrayObjects[i].imgWidth;
-          if (actions['changeHeight'] != null)
-            this.canvas.arrayObjects[i].changeHeight = actions['changeHeight'];
-          if (actions['setHeight'] != null)
-            this.canvas.arrayObjects[i].changeHeight = actions['setHeight']-this.canvas.arrayObjects[i].imgHeight;
-          if (actions['enable'] != null) {
+        if (this.canvas.arrayObjects[i].myId == action['targetId']) {
+          if (action['changePosX'] != null)
+            this.canvas.arrayObjects[i].changePosX = action['changePosX'];
+          if (action['setPosX'] != null)
+            this.canvas.arrayObjects[i].changePosX = action['setPosX']-this.canvas.arrayObjects[i].posX;
+          if (action['changePosY'] != null)
+            this.canvas.arrayObjects[i].changePosY = action['changePosY'];
+          if (action['setPosY'] != null)
+            this.canvas.arrayObjects[i].changePosY = action['setPosY']-this.canvas.arrayObjects[i].posY;
+          if (action['changeWidth'] != null)
+            this.canvas.arrayObjects[i].changeWidth = action['changeWidth'];
+          if (action['setWidth'] != null)
+            this.canvas.arrayObjects[i].changeWidth = action['setWidth']-this.canvas.arrayObjects[i].imgWidth;
+          if (action['changeHeight'] != null)
+            this.canvas.arrayObjects[i].changeHeight = action['changeHeight'];
+          if (action['setHeight'] != null)
+            this.canvas.arrayObjects[i].changeHeight = action['setHeight']-this.canvas.arrayObjects[i].imgHeight;
+          if (action['enable'] != null) {
             this.canvas.arrayObjects[i].catch = 1;
             this.canvas.arrayObjects[i].imgElementObj.style.visibility = 'visible';
           }
-          if (actions['disable'] != null) {
+          if (action['disable'] != null) {
             this.canvas.arrayObjects[i].catch = 0;
             this.canvas.arrayObjects[i].imgElementObj.style.visibility = 'hidden';
           }
         }
       }    
     }
-  } // setActions
+  } // setAction
 
 } // class Item
