@@ -10,4 +10,4 @@ export class Car extends Figure {
     this.imgHeight = 16;
   } // constructor
 
-} // class Rocket
+} // class Car
