@@ -1,6 +1,6 @@
 [
-  {"class": "Willy", "posX": -6, "posY": 1, "softlyX": 4},
-  {"class": "xWilly", "posX": 11, "posY": 1, "softlyX": 4},
+  {"class": "xWilly", "posX": -6, "posY": 1, "softlyX": 4},
+  {"class": "Willy", "posX": 11, "posY": 1, "softlyX": 4},
   {"class": "Kate", "posX": 2, "posY": 1},
   
   {"section": "first floor"},
