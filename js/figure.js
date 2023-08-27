@@ -133,8 +133,10 @@ export class Figure {
                 if (this.isLanding ()) {
                   if (this.mainFigure) {
                     this.canvas.deltaY += this.jump;
-                    this.jump = 0;
+                  } else {
+                    this.posY += this.jump;
                   }
+                  this.jump = 0;
                   this.jumpCounter = 0;
                   this.jumpDirection = 0;
                   break;
@@ -147,8 +149,10 @@ export class Figure {
               if (this.isHeadImpact (this.jumpMap[this.jumpCounter])) {
                 if (this.mainFigure) {
                   this.canvas.deltaY += this.jump;
-                  this.jump = 0;
+                } else {
+                  this.posY += this.jump;
                 }
+                this.jump = 0;
                 this.jumpCounter = 0;
                 this.jumpDirection = 0;
                 this.checkFalling();
