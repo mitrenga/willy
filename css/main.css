@@ -3,6 +3,7 @@ body {margin: 0; position: fixed; background-color: #666; overflow: hidden; touc
 .canvas {
   position: absolute;
   background-color: #666;
+  left: 0px;
   top: 0px;
   margin: 0;
   padding: 0; 
