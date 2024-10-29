@@ -7,14 +7,14 @@ export class Figure {
   imgHeight = 16;
   posX = 0;
   posY = 0;
-  step = 0;
-  direction = 0;
+  step = 0; // 0..3
+  direction = 0; // 0-right, 1-left
   jump = 0;
-  jumpDirection = 0;
+  jumpDirection = 0; // 0-none, 1-left, 2-right
   jumpCounter = 0;
   falling = 0;
   mainFigure = 0;
-  figureType = 0;
+  figureType = 0; // 0-Willy or Kate, 1-Jetpac
   alien = 0;
 
   jumpMap = [0, 4, 4, 3, 3, 2, 2, 1, 1, 0, -1, -1, -2, -2, -3, -3, -4, -4];
@@ -110,12 +110,12 @@ export class Figure {
     }
   
     switch (this.figureType) {
-      case 0: { // Willy
+      case 0: { // Willy or Kate
         if (((this.pressKeyUp()) || (this.jumpCounter))) {
           if (this.jumpCounter == 0) {
-            if (this.canvas.pressKeyLeft && !this.canvas.pressKeyRight && !this.mustGoRight() || this.mustGoLeft())
+            if (this.pressKeyLeft() && !this.pressKeyRight() && !this.mustGoRight() || this.mustGoLeft())
               this.jumpDirection = 1;
-            if (this.canvas.pressKeyRight && !this.canvas.pressKeyLeft && !this.mustGoLeft() || this.mustGoRight())
+            if (this.pressKeyRight() && !this.pressKeyLeft() && !this.mustGoLeft() || this.mustGoRight())
               this.jumpDirection = 2;
               
             if (!this.isHeadImpact(this.jumpMap[1])) {
