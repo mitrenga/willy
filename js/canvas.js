@@ -236,6 +236,12 @@ export class Canvas {
     if (this.loopCounter > 3) {
       this.loopCounter = 0;
     }
+    
+    if (this.willy != null) {
+      this.willy.keyLeft = this.pressKeyLeft;
+      this.willy.keyRight = this.pressKeyRight;
+      this.willy.keyUp = this.pressKeyUp;
+    }
   
     if (this.loopCounter % 2 == 0) {
       this.animationCounter ++;

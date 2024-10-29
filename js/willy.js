@@ -4,8 +4,13 @@ export class Willy extends Figure {
   defaultX = 0;
   defaultY = 0;
 
+  keyUp = 0;
+  keyLeft = 0;
+  keyRight = 0;
+
+
   constructor(canvas, posX, posY) {
-    super(canvas, 'willy', 'images/willy.png');
+    super(canvas, 'willy', 'images/robot.png');
     this.posX = posX;
     this.posY = posY;
     this.defaultX = posX;
@@ -27,17 +32,17 @@ export class Willy extends Figure {
 
 
   pressKeyLeft() {
-    return this.canvas.pressKeyLeft;
+    return this.keyLeft;
   } // pressKeyLeft
 
 
   pressKeyRight() {
-    return this.canvas.pressKeyRight;
+    return this.keyRight;
   } // pressKeyRight
 
 
   pressKeyUp() {
-    return this.canvas.pressKeyUp;
+    return this.keyUp;
   } // pressKeyUp
 
 } // class Willy
